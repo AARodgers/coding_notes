@@ -170,4 +170,17 @@ All these commands are executed sequentially on the interface.*/
 phpMyAdmin interface. This can be done by first selecting the database, uploading the
 SQL script in the provided space, and executing it, as shown in the image below.*/
 
+-- Using Github Copilot to generate SQL scripts, then TAB to complete
+// SQL script to add the column "PHONE" to the table "EMPLOYEES"
+ALTER TABLE EMPLOYEES ADD COLUMN PHONE CHAR(10);
+
+-- Use Command and right arrow to accept next words in ghost text
+// SQL script to add the column "EMAIL" to the table "EMPLOYEES"
+ALTER TABLE EMPLOYEES ADD
+
+-- Use copilot for suggestions
+// SQL script to add a foreign key constraint to the "DEPT_ID" column in the "EMPLOYEES" table
+ALTER TABLE EMPLOYEES ADD CONSTRAINT FK_DEPT_ID FOREIGN KEY (DEPT_ID) REFERENCES DEPARTMENTS(DEPT_ID);
+
+-- Chat with copilot in file: Command + i
 

@@ -1,0 +1,12 @@
+Github Copilot Notes:
+
+- Check if active, will have icon at bottom on of VS Code
+- Disable copilot in a file: click on icon,
+- To have github copilot write a certain kind of function for you:
+  - // function to loop through numbers 1 through 10
+- Use Command and right arrow to accept next words in ghost text
+- ESC to dismiss ghost text
+- For suggestions from Copilot: Ctrl + Enter
+- To chat in file with copilot: Command + i, press ESC to exit or Accept Code
+  - can highlight code first that you want to change
+  - sometimes there is a chat icon in left side to talk with like an AI
