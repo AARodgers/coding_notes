@@ -255,3 +255,51 @@ SELECT UCASE(ANIMAL) FROM PETRESCUE;
 
 -- the user could ask for a lower case representation, and the query would be changed to:
 SELECT LCASE(ANIMAL) FROM PETRESCUE;
+
+
+--Date Functions
+
+
+-- Write a query that displays the rescue date.
+-- The output of this query will be only the DAY part of the date in the column
+SELECT DAY(RESCUEDATE) FROM PETRESCUE;
+
+--In case the query was asking for MONTH of rescue, the query would change to:
+SELECT MONTH(RESCUEDATE) FROM PETRESCUE;
+
+--In case the query was asking for YEAR of rescue, the query would change to:
+SELECT YEAR(RESCUEDATE) FROM PETRESCUE;
+
+-- Animals rescued should see the vet within three days of arrival. Write a query that displays the third day of each rescue.
+SELECT DATE_ADD(RESCUEDATE, INTERVAL 3 DAY) FROM PETRESCUE
+
+DATE_ADD(COLUMN_NAME, INTERVAL Number Date_element)
+
+--If the question was to add 2 months to the date, the query would change to:
+SELECT DATE_ADD(RESCUEDATE, INTERVAL 2 MONTH) FROM PETRESCUE
+
+--Similarly, we can retrieve a date before the one given in the column by a given number using the function DATE_SUB. By modifying the same example, the following query would provide the date 3 days before the rescue.
+SELECT DATE_SUB(RESCUEDATE, INTERVAL 3 DAY) FROM PETRESCUE
+
+--Write a query that displays the length of time the animals have been rescued, for example, the difference between the current date and the rescue date.
+SELECT DATEDIFF(CURRENT_DATE, RESCUEDATE) FROM PETRESCUE
+
+--CURRENT_DATE is also an inbuilt function that returns the present date as known to the server.
+
+--To present the output in a YYYY-MM-DD format, another function FROM_DAYS(number_of_days)can be used. This function takes a number of days and returns the required formatted output. The query above would thus be modified to
+SELECT FROM_DAYS(DATEDIFF(CURRENT_DATE, RESCUEDATE)) FROM PETRESCUE
+
+--Write a query that displays the average cost of rescuing a single dog. Note that the cost per dog would not be the same in different instances.
+SELECT AVG(COST/QUANTITY) FROM PETRESCUE WHERE ANIMAL = 'Dog';
+
+--Write a query that displays the animal name in each rescue in uppercase without duplications.
+SELECT DISTINCT UCASE(ANIMAL) FROM PETRESCUE;
+
+--Write a query that displays all the columns from the PETRESCUE table where the animal(s) rescued are cats. Use cat in lowercase in the query.
+SELECT * FROM PETRESCUE WHERE LCASE(ANIMAL)="cat";
+
+--Write a query that displays the number of rescues in the 5th month.
+SELECT SUM(QUANTITY) FROM PETRESCUE WHERE MONTH(RESCUEDATE)="05";
+
+--The rescue shelter is supposed to find good homes for all animals within 1 year of their rescue. Write a query that displays the ID and the target date.
+SELECT ID, DATE_ADD(RESCUEDATE, INTERVAL 1 YEAR) FROM PETRESCUE;
