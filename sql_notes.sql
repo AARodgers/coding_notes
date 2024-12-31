@@ -213,3 +213,45 @@ insert into PETRESCUE values
 ;
 
 
+-- Aggregation Functions
+
+--Write a query that calculates the total cost of all animal rescues in the PETRESCUE table.
+SELECT SUM(COST) FROM PETRESCUE;
+
+-- You can further assign a label to the query SUM_OF_COST.
+SELECT SUM(COST) AS SUM_OF_COST FROM PETRESCUE;
+
+--Write a query that displays the maximum quantity of animals rescued (of any kind).
+--The output of this query will be the maximum value of all elements in the column.
+SELECT MAX(QUANTITY) FROM PETRESCUE;
+
+-- The query can easily be changed to display the minimum quantity using the MIN function instead.
+SELECT MIN(QUANTITY) FROM PETRESCUE;
+
+-- Write a query that displays the average cost of animals rescued.
+SELECT AVG(COST) FROM PETRESCUE;
+
+-- Scalar Functions and String Functions
+
+--Write a query that displays the rounded integral cost of each rescue.
+--The output of this query will be the value of each element in the column rounded to the specified number of decimal places. Note that
+--the second argument is optional and, if omitted, results in rounding to an integer value
+SELECT ROUND(COST) FROM PETRESCUE;
+
+-- The query could also be written as:
+SELECT ROUND(COST, 0) FROM PETRESCUE;
+
+-- In case the question was to round the value to 2 decimal places, the query would change to:
+SELECT ROUND(COST, 2) FROM PETRESCUE;
+
+
+-- Write a query that displays the length of each animal name.
+-- The output of this query will be the length of each element in the column
+SELECT LENGTH(ANIMAL) FROM PETRESCUE;
+
+-- Write a query that displays the animal name in each rescue in uppercase.
+-- The output of this query will be each element in the column in upper case letters
+SELECT UCASE(ANIMAL) FROM PETRESCUE;
+
+-- the user could ask for a lower case representation, and the query would be changed to:
+SELECT LCASE(ANIMAL) FROM PETRESCUE;
