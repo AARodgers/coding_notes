@@ -10,3 +10,8 @@ Github Copilot Notes:
 - To chat in file with copilot: Command + i, press ESC to exit or Accept Code
   - can highlight code first that you want to change
   - sometimes there is a chat icon in left side to talk with like an AI
+- Copilot can fix your errors
+- Can help you fix errors, ( don't know how but a little box will pop up and select
+: Fix using Copilot or Explain using Copilot)
+- It can you explain things and help you if you click the sparkle stars
+- 

@@ -1,0 +1,4 @@
+To see if a local Git repository has an upstream remote repository attached:
+git remote -v
+
+
