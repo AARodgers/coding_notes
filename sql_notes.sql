@@ -493,3 +493,17 @@ WHERE JOB_IDENT IN (SELECT JOB_ID
 SELECT J.JOB_TITLE, J.MIN_SALARY, J.MAX_SALARY, J.JOB_IDENT
 FROM JOBS J, EMPLOYEES E
 WHERE E.JOB_ID = J.JOB_IDENT AND YEAR(E.B_DATE)>1976;
+
+
+-- SELECT statements-------------------------------
+
+-- Retrieve data from specific columns
+SELECT COLUMN1, COLUMN2, ... FROM TABLE_1 ;
+
+-- Retrieve all columns or whole table
+SELECT * FROM TABLE_1 ;
+
+-- Use the WHERE clause to filter the required data based on a predicate
+SELECT <COLUMNS> FROM TABLE_1 WHERE <predicate> ;
+SELECT * FROM COUNTRY WHERE ID <= 5 ;
+SELECT * FROM COUNTRY WHERE CCode = 'CA' ;
