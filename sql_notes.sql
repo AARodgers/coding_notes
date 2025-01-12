@@ -507,3 +507,56 @@ SELECT * FROM TABLE_1 ;
 SELECT <COLUMNS> FROM TABLE_1 WHERE <predicate> ;
 SELECT * FROM COUNTRY WHERE ID <= 5 ;
 SELECT * FROM COUNTRY WHERE CCode = 'CA' ;
+
+-- Filter by something that isn't equal (films not by this director)
+Retrieve the names, production company names, filming locations, and release years of the films not written by James Cameron.
+
+-- Insert rows into the table with INSERT
+INSERT INTO table_name (column1, column2, ... )
+VALUES (value1, value2, ... )
+;
+
+-- Example INSERT:
+-- Insert a new instructor record with id 4 for Sandip Saha who lives in Edmonton, CA into the “Instructor” table.
+INSERT INTO Instructor(ins_id, lastname, firstname, city, country)
+VALUES(4, 'Saha', 'Sandip', 'Edmonton', 'CA');
+
+-- Example INSERT multiple rows:
+-- Insert two new instructor records into the “Instructor” table. First record with id 5 for John Doe who lives in Sydney, AU. Second record with id 6 for Jane Doe who lives in Dhaka, BD.
+INSERT INTO Instructor(ins_id, lastname, firstname, city, country)
+VALUES(5, 'Doe', 'John', 'Sydney', 'AU'), (6, 'Doe', 'Jane', 'Dhaka', 'BD');
+
+-- Update rows values with UPDATE
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition
+;
+
+-- Example update a city:
+-- Update the city for Sandip to Toronto.
+UPDATE Instructor
+SET city='Toronto'
+WHERE firstname="Sandip";
+
+-- Example update multiple columns
+-- Update the city and country for Doe with id 5 to Dubai and AE respectively.
+UPDATE Instructor
+SET city='Dubai', country='AE'
+WHERE ins_id=5;
+
+-- Delete rows from tables
+DELETE FROM table_name
+WHERE condition
+;
+
+--Example to remove a row with certain id
+-- Remove the instructor record of Doe whose id is 6.
+DELETE FROM instructor
+WHERE ins_id = 6;
+
+--Example: remove row with certain name
+-- Remove the instructor record of Hima.
+DELETE FROM instructor
+WHERE firstname = 'Hima';
+
+SELECT * FROM Instructor;
