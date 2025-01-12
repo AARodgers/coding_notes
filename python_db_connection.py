@@ -168,3 +168,23 @@ df = pd.read_sql(sql_query, conn)
 #read_sql()  is a function provided by the Pandas library in Python for executing SQL queries and retrieving the results into a DataFrame from an SQL database. It's a convenient way to integrate SQL database interactions into your data analysis workflows.
 selectQuery = "select * from INSTRUCTOR"
 df = pandas.read_sql(selectQuery, conn)
+
+######################################################################
+# Accessing a database using python
+
+# Connection methods:
+# 1. .cursor()
+# 2. .commit()
+# 3. .rollback()
+# 4. .close()
+
+# Cursor methods:
+# 1. .callproc()
+# 2. .execute()
+# 3. .executemany()
+# 4. .fetchone()
+# 5. .fetchmany()
+# 6. .fetchall()
+# 7. .nextset()
+# 8. .arraysize()
+# 9. .close()
