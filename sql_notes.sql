@@ -560,3 +560,6 @@ DELETE FROM instructor
 WHERE firstname = 'Hima';
 
 SELECT * FROM Instructor;
+
+--- Accessing db with SQL Magic
+
