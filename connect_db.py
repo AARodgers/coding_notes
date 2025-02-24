@@ -5,4 +5,8 @@
 import sqlite3
 con = sqlite3.connect("INSTRUCTOR.db")
 
+# Example of connecting to a database in python
+data = pandas.read_sql_query(query_statement, connection_variable)
+query_statement = "SELECT * FROM INSTRUCTOR"
+
 
