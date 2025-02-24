@@ -563,3 +563,5 @@ SELECT * FROM Instructor;
 
 --- Accessing db with SQL Magic
 
+-- use backslash as the escape character before the quote
+query_statement = "SELECT * FROM Instructor WHERE "Name of Dog" = \'Hima\'s";

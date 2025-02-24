@@ -9,4 +9,4 @@ con = sqlite3.connect("INSTRUCTOR.db")
 data = pandas.read_sql_query(query_statement, connection_variable)
 query_statement = "SELECT * FROM INSTRUCTOR"
 
-
+# 
