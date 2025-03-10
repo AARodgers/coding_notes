@@ -17,13 +17,6 @@ COMMUNITY_AREA_NUMBER	COMMUNITY_AREA_NAME
 
 Problem 3
 List all case numbers for crimes involving minors?(children are not considered minors for the purposes of crime analysis)
-%%sql
-SELECT case_number
-FROM CHICAGO_CRIME_DATA
-WHERE involves_minor = 1;
-
-Problem 3
-List all case numbers for crimes involving minors?(children are not considered minors for the purposes of crime analysis)
 %sql SELECT DISTINCT CASE_NUMBER FROM CHICAGO_CRIME_DATA WHERE DESCRIPTION LIKE '%MINOR%'
 Done.
 case_number
