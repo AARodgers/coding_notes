@@ -31,7 +31,39 @@ cd ./bin
 Change to a sibling directory that is at the same level in the current directory:
 cd ../<directory_name>
 
+NANO
 Open text editor nano:
 nano file_name
+
+Navigate using page up and down, home and end keys, and arrows
+
+Find text:
+Ctrl + W, then type in text
+
+VIM
+to open;
+vim   OR  vim <file_name>
+
+Vim has 2 modes:
+1. Command mode - For navigation and commands
+2. Insert mode - For inserting text
+
+Switch to insert mode:
+Press `i` in command mode
+
+Switch back to command mode:
+Press `Esc` in insert mode
+
+Save and exit:
+In command mode, type `:wq` and press `Enter`
+or
+:sav file_name
+
+Exit without saving:
+In command mode, type `:q!` and press `Enter`
+
+:w to write the buffer to file without exiting
+:q to quit vim session
+:q! to exit without saving
 
 
