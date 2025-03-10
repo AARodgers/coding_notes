@@ -66,4 +66,36 @@ In command mode, type `:q!` and press `Enter`
 :q to quit vim session
 :q! to exit without saving
 
+DEBIAN or .deb files/packages are used for Debian based distributions ('distros'),
+like Debian , Ubuntu, and Linux Mint.
+
+RPM (Red Hat Package Manager) or .rpm files/packages are used for Red Hat based distributions,
+like Red Hat Enterprise Linux (RHEL), CentOS, and Fedora.
+
+If you want to change the format from one to another:
+RPM to DEB:
+alien -k <file_name>.rpm
+DEB to RPM:
+alien -r <file_name>.deb
+
+sudo apt update
+- to install all current updates
+- to find available packages for your distro
+
+sudo apt package_name
+- to install a package
+
+YUM (Yellowdog Updater, Modified) is a package manager used for Red Hat based distributions.
+
+To install a package:
+sudo yum install <package_name>
+
+To update all packages:
+sudo yum update
+
+To remove a package:
+sudo yum remove <package_name>
+
+To search for a package:
+yum search <package_name>
 
