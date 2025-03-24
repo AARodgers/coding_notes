@@ -99,3 +99,23 @@ sudo yum remove <package_name>
 To search for a package:
 yum search <package_name>
 
+# Print path to default shell
+printevn SHELL
+# get username
+whoami
+# get user id and group id
+id
+# get operating system name
+uname
+# get running processes
+ps
+#get resource usage
+top
+# get mounted file systems
+df
+# reference manual ( linux commands)
+man
+# today's date
+date
+
+
