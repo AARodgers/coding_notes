@@ -24,7 +24,7 @@ Example Usage:
 # module_b.py:
 
 # module_b.py
-from .. import module_a
+from ... import module_a
 
 def use_module_a():
     return module_a.some_function()
