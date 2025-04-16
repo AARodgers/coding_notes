@@ -283,3 +283,27 @@ man ls
 # To see all available man pages with a brief description of each command, enter:
 man -k .
 # *** This gives you git commits too.
+
+ls -l # long listing format
+ls -a # show all files including hidden files
+ls -lh # human readable format
+ls -R # recursive listing
+ls -t # sort by time
+ls -S # sort by size
+
+ls Downloads # list files in Downloads directory
+
+find . -name "*.txt" # find all text files in current directory
+find . -name "a.txt" # find file named a.txt in current directory
+find . -type f -name "*.txt" # find all text files in current directory
+(. means current directory, -type f means file, -type d means directory)
+find . iname "*.txt" # find all text files in current directory, case insensitive
+
+rm file.py # remove file.py
+rm -r directory_name # remove directory and its contents
+rm -rf directory_name # remove directory and its contents without confirmation
+rmdir directory_name # remove empty directory
+
+touch file.txt # create empty file.txt
+
+date -r notes.txt # get last modified date of file.txt
