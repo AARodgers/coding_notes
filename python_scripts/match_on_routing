@@ -1,0 +1,106 @@
+To match the bank names from a DataFrame (`df`) with those in a CSV file by routing number, you can use **Pandas** in Python. Here's how you can do it step-by-step:
+
+---
+
+### **Steps to Match Bank Names by Routing Number**
+
+#### **1. Import Libraries**
+First, import the necessary libraries:
+```python
+import pandas as pd
+```
+
+---
+
+#### **2. Load the Data**
+Load both the DataFrame (`df`) and the CSV file into Pandas DataFrames:
+```python
+# Example DataFrame
+data = {
+    'Bank Name': ['Bank A', 'Bank B', 'Bank C'],
+    'Routing Number': [111000025, 111000038, 111000123]
+}
+df = pd.DataFrame(data)
+
+# Load the CSV file
+csv_path = 'bank_routing_numbers.csv'  # Replace with your CSV file path
+csv_df = pd.read_csv(csv_path)  # Ensure the CSV has 'Bank Name' and 'Routing Number' columns
+```
+
+---
+
+#### **3. Inspect the Data**
+Check the structure of both DataFrames to ensure the column names match:
+```python
+print(df.head())       # Inspect the first few rows of the DataFrame
+print(csv_df.head())   # Inspect the first few rows of the CSV DataFrame
+```
+
+---
+
+#### **4. Merge the DataFrames**
+Use the `merge` function to match rows based on the `Routing Number` column:
+```python
+# Merge the DataFrames on Routing Number
+merged_df = pd.merge(df, csv_df, on='Routing Number', suffixes=('_df', '_csv'))
+
+# Inspect the merged DataFrame
+print(merged_df)
+```
+
+---
+
+#### **5. Handle Mismatches**
+If there are routing numbers in `df` that do not exist in the CSV file, you can use the `how` parameter in `merge` to handle mismatches:
+- **Inner Join** (default): Only keeps rows where the routing number exists in both `df` and `csv_df`.
+- **Left Join**: Keeps all rows from `df`, even if the routing number does not exist in `csv_df`.
+- **Right Join**: Keeps all rows from `csv_df`, even if the routing number does not exist in `df`.
+- **Outer Join**: Keeps all rows from both DataFrames.
+
+Example of a left join:
+```python
+merged_df = pd.merge(df, csv_df, on='Routing Number', how='left', suffixes=('_df', '_csv'))
+print(merged_df)
+```
+
+---
+
+#### **6. Save the Result**
+If you want to save the merged DataFrame to a new CSV file:
+```python
+merged_df.to_csv('merged_bank_data.csv', index=False)
+```
+
+---
+
+### **Example Data**
+#### DataFrame (`df`):
+| Bank Name | Routing Number |
+|-----------|----------------|
+| Bank A    | 111000025      |
+| Bank B    | 111000038      |
+| Bank C    | 111000123      |
+
+#### CSV (`csv_df`):
+| Bank Name | Routing Number |
+|-----------|----------------|
+| Bank X    | 111000025      |
+| Bank Y    | 111000038      |
+| Bank Z    | 111000456      |
+
+#### Result (`merged_df`):
+| Bank Name_df | Routing Number | Bank Name_csv |
+|--------------|----------------|---------------|
+| Bank A       | 111000025      | Bank X        |
+| Bank B       | 111000038      | Bank Y        |
+| Bank C       | 111000123      | NaN           |
+
+---
+
+### **Summary**
+1. Load the DataFrame and CSV file into Pandas DataFrames.
+2. Use `pd.merge()` to match rows based on the `Routing Number` column.
+3. Handle mismatches using the `how` parameter (`inner`, `left`, `right`, or `outer`).
+4. Save the result to a new CSV file if needed.
+
+This approach allows you to efficiently match and merge data based on routing numbers.
