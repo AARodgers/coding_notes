@@ -307,3 +307,112 @@ rmdir directory_name # remove empty directory
 touch file.txt # create empty file.txt
 
 date -r notes.txt # get last modified date of file.txt
+
+cp /source/file /destination/file # copy file from source to destination
+cp /source/file /desination # copy file from source to destination
+cp -r /source/directory /destination/directory # copy directory from source to destination
+
+mv /source/file /destination/dir # move file from source to destination
+mv /source/dir /destination/dir # move directory from source to destination
+
+chmod 755 file.txt # change file permissions to rwxr-xr-x
+chmod +x file.txt # add execute permission to file.txt
+chmod -x file.txt # remove execute permission from file.txt
+chmod 644 file.txt # change file permissions to rw-r--r--
+
+Example:
+ls -l my_script.sh # check file permissions
+output: rw r--r my_script.sh #  read and write permissions for user, read permission for group and others
+chmod +x my_script.sh # add execute permission to my_script.sh
+ls -l my_script.sh # check file permissions (x means execute permission)
+output: rwxr-xr-x my_script.sh # read, write and execute permissions for user, read and execute permissions for group and others
+
+nohup command_name & # run command in background and ignore hangup signal
+To include the dependencies listed in someone else's `requirements.txt` file into your current **conda environment**, you can use the following steps:
+
+---
+
+### **Steps to Install Dependencies from `requirements.txt` in a Conda Environment**
+
+#### 1. **Activate Your Conda Environment**
+   - Ensure you are already in the correct conda environment. If not, activate it:
+     ```bash
+     conda activate your_environment_name
+     ```
+
+#### 2. **Install Dependencies Using `pip`**
+   - Even though you're in a conda environment, you can use `pip` (which is compatible with conda environments) to install the packages from the `requirements.txt` file:
+     ```bash
+     pip install -r path/to/requirements.txt
+     ```
+   - Replace `path/to/requirements.txt` with the actual path to the file.
+
+#### 3. **Verify Installation**
+   - After installation, you can check that the packages are installed by running:
+     ```bash
+     pip list
+     ```
+   - This will display all installed packages and their versions.
+
+---
+
+### **Notes and Best Practices**
+1. **Ensure `pip` is Installed in Your Conda Environment**:
+   - If `pip` is not already installed in your conda environment, you can add it with:
+     ```bash
+     conda install pip
+     ```
+
+2. **Resolve Potential Conflicts**:
+   - If the `requirements.txt` file contains packages that conflict with conda-installed dependencies, you may encounter issues. To avoid this:
+     - Use `conda install` for packages that are available in conda's repositories.
+     - Use `pip` only for packages not available in conda.
+
+3. **Check for Conda-Available Packages First** (Optional):
+   - If you want to prioritize using conda packages, you can manually install the packages listed in `requirements.txt` via conda:
+     ```bash
+     conda install package_name
+     ```
+   - You may need to edit the `requirements.txt` file to remove version-specific constraints or unsupported packages.
+
+4. **Create a Backup of Your Environment**:
+   - Before making changes, you can export your current environment in case you need to revert:
+     ```bash
+     conda env export > environment_backup.yml
+     ```
+
+---
+
+### **Advanced: Convert `requirements.txt` to Conda-Compatible Format**
+If you want to ensure compatibility with conda, you can convert the `requirements.txt` file into a `conda` environment YAML file:
+1. Use the following command to generate a new YAML file:
+   ```bash
+   pip install pipreqs
+   pipreqs /path/to/project --savepath environment.yml
+   ```
+2. Edit the `environment.yml` file as needed, then recreate the environment:
+   ```bash
+   conda env create -f environment.yml
+   ```
+
+---
+
+nohup command_name & # run command in background and ignore hangup signal
+# find pid
+ps aux | grep name_of_script_or_program
+# Once you have the PID, stop the process using the kill command:
+kill PID
+# If the process doesn’t stop, use the -9 option to forcefully terminate it:
+kill -9 PID
+# check if the process is still running
+ps aux | grep name_of_script_or_program
+
+# If you want to stop all processes running with nohup, you can find and terminate them in bulk:
+# List All nohup Processes:
+ps aux | grep nohup
+# Kill All Matching Processes:
+ps aux | grep nohup | awk '{print $2}' | xargs kill
+# Add -9 to forcefully kill them if needed:
+ps aux | grep nohup | awk '{print $2}' | xargs kill -9
+# nohup.out File: If you no longer need the output log created by nohup, you can delete it:
+rm nohup.out
