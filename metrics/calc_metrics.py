@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 def calculate_metrics_from_excel(file_path):
     """
@@ -11,7 +12,7 @@ def calculate_metrics_from_excel(file_path):
         dict: A dictionary containing calculated metrics (precision, accuracy, etc.).
     """
     # Load the Excel file into a DataFrame
-    df = pd.read_excel(file_path)
+    df = pd.read_csv(file_path)
 
     # Calculate totals for TP, TN, FP, FN
     tp = df['TP'].sum()
@@ -34,7 +35,7 @@ def calculate_metrics_from_excel(file_path):
     }
 
 # Example usage
-file_path = "path_to_your_excel_file.xlsx"  # Replace with the actual path to your Excel file
+file_path = "/Users/amandarodgers/Documents/coding_stuff/data/fake_metrics.csv"
 metrics = calculate_metrics_from_excel(file_path)
 
 # Print the calculated metrics
