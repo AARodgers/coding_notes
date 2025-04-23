@@ -1,0 +1,280 @@
+True Positive (TP): Correctly predicted positive cases.
+True Negative (TN): Correctly predicted negative cases.
+False Positive (FP): Incorrectly predicted positive cases.
+False Negative (FN): Incorrectly predicted negative cases.
+-------------------------------------------------------------------
+
+Precision:
+how consistent or clost repeated measurements or predictions are to each other.
+Ex. If you throw darts and they all land close together (even if far from the bullseye),
+your throws are precise but not accurate. If your darts land near the bullseye, they are
+accurate. If they also land close together, they are both precise and accurate.
+In classification problems, precision is a metric used to measure how many of the
+positive predictions made by a model are actually correct. It focuses on the quality of positive predictions.
+
+Precision = TP / (TP + FP)
+
+Ex. you have test 100 emails for spam, you correctly identify 40 as spam (TP) and
+incorrectly identify 10 as spam when they are not (FP).
+Your precision is 40 / (40 + 10) = 0.8 or 80%.
+This means that 80% of the emails you predicted as spam were actually spam.
+Precision answers the question: "Of all the emails flagged as spam, how many are actually spam?"
+In this example:
+80% precision means that 80% of the emails flagged as spam are indeed spam,
+while 20% are incorrectly flagged (false positives).
+Precision is especially important in situations where false positives are costly or
+harmful, such as: fraud detection, medical diagnoses, and spam filtering.
+
+----------------------------------------------------------------------
+
+Accuracy: how close a measurement or prediction is to the true or actual value.
+Ex. If you throw darts and they all land near the bullseye, your throws are accurate.
+It measures the proportion of correct predictions (both positive and negative) out of
+all predictions made by the model.
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+90% accuracy means that the model correctly predicted 90% of the samples
+(both positive and negative).
+However, accuracy alone may not always be a reliable metric, especially for
+imbalanced datasets (e.g., when one class is much larger than the other).
+Accuracy is a good metric when the dataset is balanced
+(i.e., both classes have similar proportions).
+For imbalanced datasets, consider other metrics like precision, recall, or F1-score to better evaluate the model's performance.
+
+--------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+In statistics, **precision** refers to the level of consistency or repeatability of a measurement or estimate. It reflects how much variability exists in repeated measurements or predictions. Precision is a measure of **reliability**, not accuracy (which measures how close a result is to the true value).
+
+---
+
+### **Key Concepts of Precision in Statistics**
+
+1. **Precision vs. Accuracy**:
+   - **Precision**: How consistent or close repeated measurements or predictions are to each other.
+   - **Accuracy**: How close a measurement or prediction is to the true or actual value.
+   - Example:
+     - If you throw darts and they all land close together (even if far from the bullseye), your throws are **precise** but not **accurate**.
+     - If your darts land near the bullseye, they are **accurate**. If they also land close together, they are both **precise** and **accurate**.
+
+2. **In Relation to Variability**:
+   - High precision means low variability in measurements or predictions.
+   - Low precision means high variability, where repeated measurements or predictions are spread out.
+
+3. **In Statistical Models**:
+   - Precision is often related to the standard error or confidence intervals of an estimate.
+   - A smaller standard error or narrower confidence interval indicates higher precision.
+
+---
+
+### **Precision in Classification Problems (Machine Learning/Statistics)**
+
+In the context of classification problems (e.g., binary classification), **precision** is a specific metric used to evaluate the performance of a model. It measures how many of the predicted positive results are actually correct.
+
+#### Formula for Precision:
+\[
+{Precision} = {{True Positives (TP)}}{{True Positives (TP)} + \{False Positives (FP)}}
+\]
+
+- **True Positives (TP)**: Cases where the model correctly predicted the positive class.
+- **False Positives (FP)**: Cases where the model incorrectly predicted the positive class.
+
+#### Interpretation:
+- Precision answers the question: **"Of all the positive predictions made by the model, how many were actually correct?"**
+- It is particularly important in cases where **false positives** are costly (e.g., fraud detection, medical diagnoses).
+
+#### Example:
+If a model predicts 100 positive cases, and 80 of them are correct (true positives), while 20 are incorrect (false positives):
+\[
+\text{Precision} = \frac{80}{80 + 20} = 0.8 \, (80\%)
+\]
+
+---
+
+### **Real-Life Applications of Precision**
+1. **Medical Testing**:
+   - In a diagnostic test, precision measures how many of the people who tested positive actually have the disease.
+   - High precision is important to avoid unnecessary treatments for people who don’t actually have the condition.
+
+2. **Spam Detection**:
+   - Precision measures how many of the emails flagged as spam are truly spam.
+   - High precision minimizes the risk of marking important emails as spam.
+
+3. **Search Engines**:
+   - Precision measures how many of the retrieved search results are relevant to the query.
+
+---
+
+### **Improving Precision**
+- Reduce false positives by making the decision threshold stricter.
+- Use more reliable or specific features in your model to better distinguish between classes.
+
+---
+#########
+### **False Negative Explained Simply**
+
+A **false negative** happens when something is wrongly labeled as **negative**, even though it is actually **positive**.
+
+#### **Example (Super Simple):**
+Imagine a fire alarm:
+- If there’s a fire, but the alarm doesn’t go off, that’s a **false negative**.
+
+The system says **“No fire”**, but there **is a fire**.
+
+---
+
+### **Why It’s Important**
+False negatives are bad because they **miss something important**:
+- **Medical Tests**: A false negative means the test says you're healthy, but you're actually sick.
+- **Fraud Detection**: A false negative means fraud happens, but no one notices.
+
+### **How is a False Negative Calculated?**
+
+In classification problems (like predicting yes/no or positive/negative), a **false negative (FN)** is calculated as part of the confusion matrix, which includes the following terms:
+
+1. **True Positive (TP)**: Correctly predicted positive cases.
+2. **True Negative (TN)**: Correctly predicted negative cases.
+3. **False Positive (FP)**: Incorrectly predicted positive cases.
+4. **False Negative (FN)**: Incorrectly predicted negative cases.
+
+---
+
+### **False Negative Count**
+The **false negative count** is simply the number of cases where:
+- The actual (true) value is **positive**.
+- The predicted value is **negative**.
+
+#### **Formula**:
+There’s no specific formula for calculating false negatives directly, but they are identified by comparing predictions with actual values in the dataset.
+
+---
+
+### **Example of Calculation**
+Imagine you have a dataset with 10 cases. The actual and predicted values are:
+
+| Case | Actual (True) | Predicted |
+|------|---------------|-----------|
+| 1    | Positive      | Positive  |
+| 2    | Positive      | Negative  | ← **False Negative**
+| 3    | Negative      | Negative  |
+| 4    | Positive      | Positive  |
+| 5    | Negative      | Negative  |
+| 6    | Positive      | Negative  | ← **False Negative**
+| 7    | Negative      | Negative  |
+| 8    | Positive      | Positive  |
+| 9    | Negative      | Positive  |
+| 10   | Positive      | Negative  | ← **False Negative**
+
+In this case:
+- **False Negatives (FN)** = 3 (Cases 2, 6, and 10).
+
+---
+
+### **False Negative Rate (FNR)**
+You can calculate the **False Negative Rate (FNR)**, which tells you the proportion of actual positives that were incorrectly classified as negatives.
+
+#### **Formula**:
+\[
+\text{FNR} = \frac{\text{False Negatives (FN)}}{\text{False Negatives (FN)} + \text{True Positives (TP)}}
+\]
+
+---
+
+### **Example Calculation of FNR**
+Using the table above:
+- **False Negatives (FN)** = 3
+- **True Positives (TP)** = 4 (Cases 1, 4, 8)
+
+\[
+\text{FNR} = \frac{3}{3 + 4} = \frac{3}{7} \approx 0.4286 \, (42.86\%)
+\]
+
+This means that 42.86% of the actual positive cases were incorrectly classified as negative.
+
+---
+
+##############################
+### **How is a False Positive (FP) Calculated?**
+
+In classification problems (like predicting yes/no or positive/negative outcomes), a **false positive (FP)** is calculated as part of the **confusion matrix**, which includes the following terms:
+
+1. **True Positive (TP)**: Correctly predicted positive cases.
+2. **True Negative (TN)**: Correctly predicted negative cases.
+3. **False Positive (FP)**: Incorrectly predicted positive cases.
+4. **False Negative (FN)**: Incorrectly predicted negative cases.
+
+---
+
+### **False Positive Count**
+The **false positive count** is simply the number of cases where:
+- The actual (true) value is **negative**.
+- The predicted value is **positive**.
+
+#### **How to Identify False Positives**:
+Compare the actual and predicted values in the dataset:
+- If the actual value is **negative**, but the prediction is **positive**, it is a **false positive**.
+
+---
+
+### **Example of Calculation**
+
+Imagine you have a dataset with 10 cases. The actual and predicted values are:
+
+| Case | Actual (True) | Predicted |
+|------|---------------|-----------|
+| 1    | Positive      | Positive  |
+| 2    | Positive      | Negative  |
+| 3    | Negative      | Negative  |
+| 4    | Positive      | Positive  |
+| 5    | Negative      | Negative  |
+| 6    | Positive      | Negative  |
+| 7    | Negative      | Negative  |
+| 8    | Positive      | Positive  |
+| 9    | Negative      | Positive  | ← **False Positive**
+| 10   | Negative      | Positive  | ← **False Positive**
+
+In this case:
+- **False Positives (FP)** = 2 (Cases 9 and 10).
+
+---
+
+### **False Positive Rate (FPR)**
+You can calculate the **False Positive Rate (FPR)**, which tells you the proportion of actual negatives that were incorrectly classified as positives.
+
+#### **Formula**:
+\[
+\text{FPR} = \frac{\text{False Positives (FP)}}{\text{False Positives (FP)} + \text{True Negatives (TN)}}
+\]
+
+---
+
+### **Example Calculation of FPR**
+Using the table above:
+- **False Positives (FP)** = 2
+- **True Negatives (TN)** = 3 (Cases 3, 5, and 7)
+
+\[
+\text{FPR} = \frac{2}{2 + 3} = \frac{2}{5} = 0.4 \, (40\%)
+\]
+
+This means that 40% of the actual negative cases were incorrectly classified as positive.
+
+---
+
+### **Key Notes**
+1. **False Positives Matter**:
+   - False positives can lead to unnecessary actions or decisions (e.g., unnecessary medical treatments, false alarms in security systems).
+
+2. **Reducing False Positives**:
+   - Adjusting the decision threshold can reduce false positives, but it may increase false negatives.
+
+####################################
