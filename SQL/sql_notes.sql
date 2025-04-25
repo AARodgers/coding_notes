@@ -397,7 +397,7 @@ Now, consider that you wish to extract the first and last names of the oldest em
 SELECT F_NAME, L_NAME
 FROM EMPLOYEES
 WHERE B_DATE = (SELECT MIN(B_DATE) FROM EMPLOYEES);
-Copied!
+
 You may also use sub-queries to create derived tables, which can then be used to query specific information. Say you want to know the average salary of the top 5 earners in the company. You will first have to extract a table of the top five salaries as a table. From that table, you can query the average value of the salary. The query can be written as follows.
 
 SELECT AVG(SALARY)
@@ -569,6 +569,150 @@ query_statement = "SELECT * FROM Instructor WHERE "Name of Dog" = \'Hima\'s";
 
 ======================================================================
 
-Notes from DataCamp SQL Course
+######### left join #########
+### **What is a LEFT JOIN in SQL?**
 
+A **LEFT JOIN** in SQL is used to combine rows from two tables. It ensures that all rows from the **left table** are included in the result, even if there is no matching row in the **right table**. If there is no match, the columns from the right table will contain `NULL` values.
+
+---
+
+### **How It Works**
+1. **Left Table**: The table you start with (the "main" table).
+2. **Right Table**: The table you want to join with the left table.
+3. **Matching Condition**: A condition (usually based on a column) that determines how rows from the two tables are connected.
+
+---
+
+### **Key Points**
+- **All rows from the left table** are included.
+- If there’s no match in the right table, the columns from the right table will show `NULL`.
+
+---
+
+### **Example**
+Imagine you have two tables:
+
+#### **Table: Employees**
+| EmployeeID | Name       | DepartmentID |
+|------------|------------|--------------|
+| 1          | Alice      | 101          |
+| 2          | Bob        | 102          |
+| 3          | Charlie    | 103          |
+| 4          | David      | NULL         |
+
+#### **Table: Departments**
+| DepartmentID | DepartmentName |
+|--------------|----------------|
+| 101          | HR             |
+| 102          | IT             |
+
+---
+
+### **LEFT JOIN Query**
+```sql
+SELECT Employees.EmployeeID, Employees.Name, Departments.DepartmentName
+FROM Employees
+LEFT JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+```
+
+---
+
+### **Result**
+| EmployeeID | Name       | DepartmentName |
+|------------|------------|----------------|
+| 1          | Alice      | HR             |
+| 2          | Bob        | IT             |
+| 3          | Charlie    | NULL           |
+| 4          | David      | NULL           |
+
+---
+
+### **Explanation**
+- **Alice and Bob**: Their `DepartmentID` matches with the `Departments` table, so their `DepartmentName` is included.
+- **Charlie and David**: Their `DepartmentID` doesn't exist in the `Departments` table (or is `NULL`), so `DepartmentName` is `NULL`.
+
+---
+
+### **Real-World Analogy**
+Imagine you have a list of employees (left table) and a list of departments (right table). A **LEFT JOIN** ensures that every employee is listed, even if they don’t belong to any department.
+
+---
+
+
+#### right join #########
+
+
+A **RIGHT JOIN** in SQL is used to combine rows from two tables. It ensures that all rows from the **right table** are included in the result, even if there is no matching row in the **left table**. If there is no match, the columns from the left table will contain `NULL` values.
+
+---
+
+### **How It Works**
+1. **Right Table**: The table you want to include all rows from (the "main" table).
+2. **Left Table**: The table you are joining with the right table.
+3. **Matching Condition**: A condition (usually based on a column) that determines how rows from the two tables are connected.
+
+---
+
+### **Key Points**
+- **All rows from the right table** are included.
+- If there’s no match in the left table, the columns from the left table will show `NULL`.
+
+---
+
+### **Example**
+Imagine you have two tables:
+
+#### **Table: Employees**
+| EmployeeID | Name       | DepartmentID |
+|------------|------------|--------------|
+| 1          | Alice      | 101          |
+| 2          | Bob        | 102          |
+| 3          | Charlie    | 103          |
+
+#### **Table: Departments**
+| DepartmentID | DepartmentName |
+|--------------|----------------|
+| 101          | HR             |
+| 102          | IT             |
+| 104          | Finance        |
+
+---
+
+### **RIGHT JOIN Query**
+```sql
+SELECT Employees.EmployeeID, Employees.Name, Departments.DepartmentName
+FROM Employees
+RIGHT JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+```
+
+---
+
+### **Result**
+| EmployeeID | Name       | DepartmentName |
+|------------|------------|----------------|
+| 1          | Alice      | HR             |
+| 2          | Bob        | IT             |
+| NULL       | NULL       | Finance        |
+
+---
+
+### **Explanation**
+- **HR and IT**: These departments have matching `DepartmentID` values in the `Employees` table, so the corresponding employees (`Alice` and `Bob`) are included.
+- **Finance**: This department does not have a matching `DepartmentID` in the `Employees` table, so the `EmployeeID` and `Name` columns are `NULL`.
+
+---
+
+### **Real-World Analogy**
+Imagine you have a list of departments (right table) and a list of employees (left table). A **RIGHT JOIN** ensures that every department is listed, even if no employees belong to it.
+
+---
+
+### **Difference Between LEFT JOIN and RIGHT JOIN**
+- **LEFT JOIN**: Includes all rows from the left table, even if there is no match in the right table.
+- **RIGHT JOIN**: Includes all rows from the right table, even if there is no match in the left table.
+
+---
+##### inner join #########
 
