@@ -716,3 +716,82 @@ Imagine you have a list of departments (right table) and a list of employees (le
 ---
 ##### inner join #########
 
+### **What is an INNER JOIN in SQL?**
+
+An **INNER JOIN** in SQL is used to combine rows from two tables based on a matching condition. It only includes rows where there is a match between the two tables. If there is no match, those rows are excluded from the result.
+
+---
+
+### **How It Works**
+1. **Left Table**: The first table in the join.
+2. **Right Table**: The second table in the join.
+3. **Matching Condition**: A condition that connects rows from the two tables (usually based on a shared column like `ID`).
+
+---
+
+### **Key Points**
+- **Only matching rows** from both tables are included.
+- Rows without a match in either table are excluded.
+
+---
+
+### **Example**
+Imagine you have two tables:
+
+#### **Table: Employees**
+| EmployeeID | Name       | DepartmentID |
+|------------|------------|--------------|
+| 1          | Alice      | 101          |
+| 2          | Bob        | 102          |
+| 3          | Charlie    | 103          |
+
+#### **Table: Departments**
+| DepartmentID | DepartmentName |
+|--------------|----------------|
+| 101          | HR             |
+| 102          | IT             |
+| 104          | Finance        |
+
+---
+
+### **INNER JOIN Query**
+```sql
+SELECT Employees.EmployeeID, Employees.Name, Departments.DepartmentName
+FROM Employees
+INNER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+```
+
+---
+
+### **Result**
+| EmployeeID | Name       | DepartmentName |
+|------------|------------|----------------|
+| 1          | Alice      | HR             |
+| 2          | Bob        | IT             |
+
+---
+
+### **Explanation**
+- **Alice and Bob**: Their `DepartmentID` matches with the `Departments` table, so they are included in the result.
+- **Charlie**: His `DepartmentID` (103) does not exist in the `Departments` table, so he is excluded.
+- **Finance**: This department does not have any employees in the `Employees` table, so it is excluded.
+
+---
+
+### **Real-World Analogy**
+Imagine you have:
+- A list of employees (left table).
+- A list of departments (right table).
+An **INNER JOIN** gives you a list of employees who belong to departments that exist in both lists.
+
+---
+
+### **Difference from Other Joins**
+- **LEFT JOIN**: Includes all rows from the left table, even if there’s no match in the right table.
+- **RIGHT JOIN**: Includes all rows from the right table, even if there’s no match in the left table.
+- **INNER JOIN**: Only includes rows where there’s a match in both tables.
+
+---
+
+##############################################################
