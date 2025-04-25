@@ -5,7 +5,7 @@ False Negative (FN): Incorrectly predicted negative cases.
 -------------------------------------------------------------------
 
 Precision:
-how consistent or clost repeated measurements or predictions are to each other.
+how consistent or close repeated measurements or predictions are to each other.
 Ex. If you throw darts and they all land close together (even if far from the bullseye),
 your throws are precise but not accurate. If your darts land near the bullseye, they are
 accurate. If they also land close together, they are both precise and accurate.

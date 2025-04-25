@@ -135,4 +135,4 @@ Your manual SQL matching process for cleaned bank names between database sets ac
 
 ---
 
-Let me know if you'd like further adjustments or additional context! 😊
+Let me know if you'd like further adjustments or additional context! 

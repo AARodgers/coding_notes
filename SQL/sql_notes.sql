@@ -565,3 +565,10 @@ SELECT * FROM Instructor;
 
 -- use backslash as the escape character before the quote
 query_statement = "SELECT * FROM Instructor WHERE "Name of Dog" = \'Hima\'s";
+
+
+======================================================================
+
+Notes from DataCamp SQL Course
+
+
