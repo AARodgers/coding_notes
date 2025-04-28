@@ -181,5 +181,3 @@ If you want to copy and paste between **vim** and your system clipboard, use the
 ### **Tips for Beginners**
 - Always press **Esc** to ensure you're in **Normal Mode** before using yank and paste commands.
 - If unsure, use Visual Mode (`v`) to highlight text for copying—it’s more intuitive.
-
-
