@@ -353,3 +353,203 @@ These SQL commands help perform EDA by:
 3. Identifying trends, outliers, and duplicates.
 
 Use the commands dynamically based on the specific questions you want to answer about your data!
+
+GROUP BY
+ ####################################
+### **How `GROUP BY` Works in SQL**
+
+The `GROUP BY` clause in SQL is used to **group rows** that have the same values in specified columns into **aggregates**. It is often used with aggregate functions (like `SUM`, `COUNT`, `AVG`, `MAX`, `MIN`) to perform calculations on each group of data.
+
+---
+
+### **How It Works**
+1. **Grouping Rows**:
+   - The `GROUP BY` clause collects rows with the same values in the specified column(s) into groups.
+
+2. **Aggregate Functions**:
+   - Aggregate functions are applied to each group to calculate summary statistics, such as totals, averages, or counts.
+
+3. **Result**:
+   - The result will have one row for each unique group, with the aggregate function applied to that group.
+
+---
+
+### **Syntax**
+```sql
+SELECT column1, column2, AGGREGATE_FUNCTION(column3)
+FROM table_name
+GROUP BY column1, column2;
+```
+
+- **`column1, column2`**: The columns used to group the rows.
+- **`AGGREGATE_FUNCTION(column3)`**: The aggregate function applied to each group (e.g., `SUM`, `COUNT`, `AVG`).
+
+---
+
+### **Example 1: Basic GROUP BY**
+#### **Table: Sales**
+| Region   | Product   | Sales |
+|----------|-----------|-------|
+| North    | A         | 100   |
+| North    | B         | 200   |
+| South    | A         | 150   |
+| South    | B         | 300   |
+| North    | A         | 50    |
+
+#### **Query**:
+```sql
+SELECT Region, SUM(Sales) AS TotalSales
+FROM Sales
+GROUP BY Region;
+```
+
+#### **Result**:
+| Region   | TotalSales |
+|----------|------------|
+| North    | 350        |
+| South    | 450        |
+
+- The `GROUP BY Region` groups rows by the `Region` column.
+- The `SUM(Sales)` calculates the total sales for each region.
+
+---
+
+### **Example 2: GROUP BY Multiple Columns**
+You can group by multiple columns to create more granular groups.
+
+#### **Query**:
+```sql
+SELECT Region, Product, SUM(Sales) AS TotalSales
+FROM Sales
+GROUP BY Region, Product;
+```
+
+#### **Result**:
+| Region   | Product   | TotalSales |
+|----------|-----------|------------|
+| North    | A         | 150        |
+| North    | B         | 200        |
+| South    | A         | 150        |
+| South    | B         | 300        |
+
+- The `GROUP BY Region, Product` groups rows by both `Region` and `Product`.
+
+---
+
+### **Example 3: COUNT with GROUP BY**
+You can count the number of rows in each group.
+
+#### **Query**:
+```sql
+SELECT Product, COUNT(*) AS SalesCount
+FROM Sales
+GROUP BY Product;
+```
+
+#### **Result**:
+| Product   | SalesCount |
+|-----------|------------|
+| A         | 3          |
+| B         | 2          |
+
+- The `COUNT(*)` function counts the number of rows in each group.
+
+---
+
+### **Key Points About GROUP BY**
+1. **Columns in SELECT**:
+   - Every column in the `SELECT` clause must either:
+     - Appear in the `GROUP BY` clause, or
+     - Be used in an aggregate function.
+
+   #### Example:
+   ```sql
+   SELECT Region, SUM(Sales)  -- Valid
+   FROM Sales
+   GROUP BY Region;
+   ```
+
+   ```sql
+   SELECT Region, Sales  -- Invalid: Sales is not in GROUP BY or an aggregate function
+   FROM Sales
+   GROUP BY Region;
+   ```
+
+2. **Order of Execution**:
+   - The `GROUP BY` clause is processed **after** the `WHERE` clause and **before** the `ORDER BY` clause.
+
+   #### Execution Order:
+   - `FROM` → `WHERE` → `GROUP BY` → `HAVING` → `SELECT` → `ORDER BY`
+
+3. **`HAVING` Clause**:
+   - Use the `HAVING` clause to filter groups after aggregation (similar to `WHERE`, but for groups).
+
+   #### Example:
+   ```sql
+   SELECT Region, SUM(Sales) AS TotalSales
+   FROM Sales
+   GROUP BY Region
+   HAVING SUM(Sales) > 400;
+   ```
+
+   **Result**:
+   | Region   | TotalSales |
+   |----------|------------|
+   | South    | 450        |
+
+   - The `HAVING` clause filters groups where `SUM(Sales)` is greater than 400.
+
+---
+
+### **Common Aggregate Functions Used with GROUP BY**
+1. **`SUM()`**: Adds up all values in a group.
+2. **`COUNT()`**: Counts the number of rows in a group.
+3. **`AVG()`**: Calculates the average value in a group.
+4. **`MAX()`**: Finds the maximum value in a group.
+5. **`MIN()`**: Finds the minimum value in a group.
+
+---
+
+### **Example: Combining GROUP BY with JOIN**
+You can use `GROUP BY` with `JOIN` to aggregate data across multiple tables.
+
+#### **Tables**:
+**Orders**:
+| OrderID | CustomerID | Amount |
+|---------|------------|--------|
+| 1       | 101        | 200    |
+| 2       | 102        | 150    |
+| 3       | 101        | 300    |
+
+**Customers**:
+| CustomerID | CustomerName |
+|------------|--------------|
+| 101        | Alice        |
+| 102        | Bob          |
+
+#### **Query**:
+```sql
+SELECT c.CustomerName, SUM(o.Amount) AS TotalAmount
+FROM Orders o
+JOIN Customers c ON o.CustomerID = c.CustomerID
+GROUP BY c.CustomerName;
+```
+
+#### **Result**:
+| CustomerName | TotalAmount |
+|--------------|-------------|
+| Alice        | 500         |
+| Bob          | 150         |
+
+---
+
+### **When to Use GROUP BY**
+- To calculate aggregated metrics like totals, averages, or counts.
+- To summarize data by categories (e.g., sales by region, orders by customer).
+- To filter aggregated results using the `HAVING` clause.
+
+---
+
+GROUP BY end
+
+

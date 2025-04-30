@@ -301,3 +301,19 @@ rm -rf path/to/directory
 ```bash
 rm path/to/file.txt
 ```
+# to delete a local branch in Git:
+```bash
+git branch -d branch_name
+```
+# to force delete a local branch in Git:
+```bash
+git branch -D branch_name
+```
+# to delete a remote branch in Git:
+```bash
+git push origin --delete branch_name
+```
+# to delete a remote branch in Git using the old syntax:
+```bash
+git push origin :branch_name
+```
