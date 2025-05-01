@@ -278,3 +278,170 @@ This means that 40% of the actual negative cases were incorrectly classified as 
    - Adjusting the decision threshold can reduce false positives, but it may increase false negatives.
 
 ####################################
+
+### **What is the F1 Score?**
+
+The **F1 Score** is a metric used to evaluate the balance between **precision** and **recall** in a classification model. It combines both metrics into a single score to give you a sense of how well your model performs, especially when there is an imbalance between precision and recall.
+
+---
+
+### **Simple Explanation**
+
+The F1 Score answers the question:
+
+> **"How well does the model balance correctly identifying positive cases (precision) and capturing all actual positives (recall)?"**
+
+It is particularly useful when you want to find a balance between:
+- **Precision**: How many of the predicted positives are correct.
+- **Recall**: How many of the actual positives were correctly identified.
+
+---
+
+### **The Formula for F1 Score**
+The F1 Score is the **harmonic mean** of precision and recall:
+
+\[
+\text{F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\]
+
+Where:
+- **Precision** = \(\frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Positives (FP)}}\)
+- **Recall** = \(\frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}\)
+
+---
+
+### **Why Use the Harmonic Mean?**
+The harmonic mean gives more weight to the smaller value of precision or recall. This means that the F1 Score will only be high if **both precision and recall are high**. If one of them is very low, the F1 Score will also be low.
+
+---
+
+### **Example**
+
+Imagine you're building a spam email classifier. Here's the performance of your model:
+
+- **True Positives (TP)**: 70 (spam emails correctly identified as spam)
+- **False Positives (FP)**: 30 (non-spam emails incorrectly identified as spam)
+- **False Negatives (FN)**: 20 (spam emails missed by the model)
+
+#### **Step 1: Calculate Precision**
+\[
+\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}} = \frac{70}{70 + 30} = 0.7 \, (70\%)
+\]
+
+#### **Step 2: Calculate Recall**
+\[
+\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{70}{70 + 20} = 0.777 \, (77.7\%)
+\]
+
+#### **Step 3: Calculate F1 Score**
+\[
+\text{F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\]
+\[
+\text{F1 Score} = 2 \times \frac{0.7 \times 0.777}{0.7 + 0.777} = 2 \times \frac{0.5439}{1.477} = 0.735 \, (73.5\%)
+\]
+
+---
+
+### **Interpretation**
+- The F1 Score of **73.5%** means that the model has a reasonably good balance between precision and recall.
+- If either precision or recall were much lower, the F1 Score would drop significantly.
+
+---
+
+### **When is the F1 Score Useful?**
+- **Imbalanced Datasets**: When one class (e.g., spam vs. non-spam) is much larger than the other, accuracy alone can be misleading. The F1 Score provides a better measure of performance in such cases.
+- **When Both Precision and Recall Matter**: For example:
+  - **Medical Diagnosis**: You want to find as many sick patients as possible (high recall) without falsely diagnosing healthy patients (high precision).
+  - **Fraud Detection**: You want to catch fraudulent transactions (high recall) while minimizing false alarms (high precision).
+
+---
+
+================================
+
+### **What is ROC AUC?**
+
+**ROC AUC** stands for **Receiver Operating Characteristic - Area Under the Curve**. It is a metric used to evaluate the performance of a **binary classification model** by measuring its ability to distinguish between the two classes (e.g., positive and negative).
+
+---
+
+### **Simple Explanation**
+
+1. **ROC Curve**:
+   - The **ROC Curve** is a graph that shows the trade-off between:
+     - **True Positive Rate (TPR)** (also called **Recall**): How many actual positives the model correctly identifies.
+     - **False Positive Rate (FPR)**: How many actual negatives the model incorrectly identifies as positive.
+   - The curve is created by plotting the TPR against the FPR at different thresholds.
+
+2. **AUC (Area Under the Curve)**:
+   - The **AUC** is the area under the ROC Curve.
+   - It provides a single number to summarize the model's performance.
+   - AUC ranges from 0 to 1:
+     - **1.0 (100%)**: Perfect model (always distinguishes between positive and negative correctly).
+     - **0.5 (50%)**: Random guessing (no discriminatory power).
+     - **< 0.5**: Worse than random guessing.
+
+---
+
+### **How to Interpret ROC AUC**
+
+- **High AUC (close to 1.0)**:
+  - The model is good at distinguishing between the two classes.
+  - For example, if AUC = 0.95, the model has a **95% chance** of correctly ranking a randomly chosen positive instance higher than a randomly chosen negative instance.
+
+- **AUC = 0.5**:
+  - The model is no better than random guessing (e.g., flipping a coin).
+
+- **AUC < 0.5**:
+  - The model is worse than random guessing, which might indicate a problem with the model or data.
+
+---
+
+### **Example**
+
+Imagine you’re building a model to detect fraud in transactions (fraud = positive, not fraud = negative):
+
+| Threshold | True Positive Rate (TPR) | False Positive Rate (FPR) |
+|-----------|---------------------------|---------------------------|
+| 0.2       | 0.95                      | 0.50                      |
+| 0.5       | 0.80                      | 0.20                      |
+| 0.8       | 0.60                      | 0.05                      |
+
+#### **ROC Curve**:
+- Plot TPR (y-axis) vs. FPR (x-axis) for each threshold.
+- The curve shows how the model performs as the threshold changes.
+
+#### **AUC**:
+- The area under this curve is the **ROC AUC**.
+- If AUC = 0.90, the model is very good at distinguishing between fraud and non-fraud.
+
+---
+
+### **When to Use ROC AUC**
+- **Binary Classification**:
+  - It’s most commonly used for binary classification tasks (e.g., spam vs. not spam, fraud vs. no fraud).
+- **Imbalanced Datasets**:
+  - ROC AUC is useful when the dataset is imbalanced because it evaluates the model’s ability to rank predictions correctly, regardless of class imbalance.
+
+---
+
+### **Key Points**
+1. **Thresholds**:
+   - The ROC Curve shows how the model performs at different classification thresholds.
+   - A threshold determines when the model classifies something as positive or negative (e.g., probability > 0.5 = positive).
+
+2. **Trade-Off**:
+   - A good model balances **True Positives** (catching positives) and **False Positives** (avoiding false alarms).
+
+3. **AUC as a Single Metric**:
+   - The AUC condenses the performance of the model across all thresholds into a single number.
+
+---
+
+### **Summary**
+- **ROC Curve**: A graph showing the relationship between TPR and FPR at different thresholds.
+- **AUC (Area Under the Curve)**: A single score summarizing the model's ability to distinguish between classes.
+- **High AUC**: Indicates a better-performing model, with 1.0 being perfect and 0.5 being random guessing.
+
+---
+########################################
