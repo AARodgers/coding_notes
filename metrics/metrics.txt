@@ -445,3 +445,11 @@ Imagine you’re building a model to detect fraud in transactions (fraud = posit
 
 ---
 ########################################
+Importance of different using different threshold values in a model:
+The purpose of using different threshold values when assessing the performance of a
+model is to evaluate how the model balances **precision** (avoiding false positives)
+and **recall** (capturing true positives) under varying conditions. A
+djusting the threshold allows you to tailor the model's behavior to specific use cases,
+such as prioritizing high precision in fraud detection (to minimize false alarms) or
+high recall in medical diagnosis (to ensure no positive cases are missed), and helps
+identify the threshold that achieves the best trade-off for the problem at hand.
