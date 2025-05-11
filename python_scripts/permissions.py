@@ -108,3 +108,63 @@ chmod o-r usdoi.txt
 Verify the changed permissions as follows:
 
 ls -l usdoi.txt
+
+total 12
+drwxr-sr-x 2 theia users 4096 May 15 14:06 test
+-rw-r----- 1 theia users 8121 Sep 28  2022 usdoi.txt
+You, "theia", as the owner of test, have read, write, and execute permissions set by
+default. But all others only have read and execute permissions set and cannot write
+to your test directory. This means users outside your group can't add or remove files
+from test.
+They can, however, explore your directory to see what files and directories exist there.
+
+Note: You might be wondering what that s permission is in the execute slot for your group. The s stands for "special permission". It means that any new files created within the directory will have their group ownership set to be the same as the directory owner. We won't go into this level of detail in this course, but you can learn more about advanced Linux permissions here: Linux permissions: SUID, SGID, and sticky bit.
+
+2.2 Remove user execute permissions on your test directory
+Remove your user execute permissions on test using the following command:
+
+1
+chmod u-x test
+
+Copied!
+Now, what happens when you try to change directories to test?
+
+1
+cd test
+
+Copied!
+You get an error message!
+
+bash: cd: test: Permission denied
+
+As you just removed execute permissions for yourself on your test directory, you can no longer make
+it your present working directory. However, you can still "read" it with the ls command:
+
+Even though you have "write" permissions set, you can't actually create a new
+directory within test, because removing execute permissions overrides write permissions.
+For example, entering,
+
+mkdir test/test3
+
+throws an error:
+
+mkdir: cannot create directory ‘test/test’: Permission denied
+
+This time, try restoring execute permissions on test and denying write permissions.
+Then verify your changes:
+
+chmod u+x test
+chmod u-w test
+ls -l
+
+
+Now you can go into test, but you still can't write to it! Entering
+
+cd test
+mkdir test_again
+
+hrows the error:
+
+mkdir: cannot create directory ‘test_again’: Permission denied
+
+
