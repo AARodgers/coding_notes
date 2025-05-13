@@ -661,3 +661,11 @@ mv ~/path/to/data /home/username/splink/fake_data
 #####################################
 
 
+# how to erase a directory
+# To erase a directory in Linux, you can use the `rm` command with the `-r` (recursive) option. This allows you to remove a directory and all of its contents, including subdirectories and files.
+#
+# **Command to Erase a Directory**:
+```bash
+rm -r directory_name
+```
+# Replace `directory_name` with the name of the directory you want to erase.
