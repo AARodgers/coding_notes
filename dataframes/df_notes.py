@@ -134,3 +134,39 @@ result = df1.append(df2, ignore_index=True)
 
 ###################################
 
+# Calculate how many unique values are in a specified column
+# did it outside of function and needed single quotes around the column name
+import pandas as pd
+
+def count_unique_values(dataframe, column_name):
+    """
+    This function takes in a pandas DataFrame and a column name,
+    and returns the number of unique values in that column.
+
+    Parameters:
+        dataframe (pd.DataFrame): The input DataFrame.
+        column_name (str): The name of the column.
+
+    Returns:
+        int: The number of unique values in the column.
+    """
+    if column_name not in dataframe.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    return dataframe[column_name].nunique()
+
+# Example usage
+if __name__ == "__main__":
+    # Example DataFrame
+    df = pd.DataFrame({
+        'A': [1, 2, 2, 3, 4],
+        'B': ['apple', 'banana', 'apple', 'orange', 'banana']
+    })
+
+    # Count unique values in column 'A'
+    unique_count = count_unique_values(df, 'A')
+    print(f"Number of unique values in column 'A': {unique_count}")
+
+    # Count unique values in column 'B'
+    unique_count = count_unique_values(df, 'B')
+    print(f"Number of unique values in column 'B': {unique_count}")
