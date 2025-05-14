@@ -170,3 +170,111 @@ if __name__ == "__main__":
     # Count unique values in column 'B'
     unique_count = count_unique_values(df, 'B')
     print(f"Number of unique values in column 'B': {unique_count}")
+
+#############################################
+
+import pandas as pd
+
+def add_leading_zero(df, column_name):
+    """
+    Adds a leading zero to the values in the specified column of a DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to modify.
+    - column_name (str): The name of the column to modify.
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with the leading zero added.
+    """
+    # Ensure the column exists in the DataFrame
+    if column_name not in df.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    # Add a leading zero to each value in the column (convert to string first)
+    df[column_name] = df[column_name].astype(str).apply(lambda x: f"0{x}" if not x.startswith("0") else x)
+
+    return df
+
+# Apply the function to add a leading zero to the 'rtn' column
+fomf_top_100 = add_leading_zero(fomf_top_100, 'rtn')
+
+# Display the modified DataFrame
+print(fomf_top_100)
+
+#####################################################################
+ # Do same as above but only to values that are eight characters in length in that column
+ Below is the updated function that adds a leading zero only to the values in the specified column that are exactly 8 characters long.
+
+import pandas as pd
+
+def add_leading_zero_to_eight_char_values(df, column_name):
+    """
+    Adds a leading zero to values in the specified column of a DataFrame
+    only if the values are exactly 8 characters long.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to modify.
+    - column_name (str): The name of the column to modify.
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with the leading zero added to qualifying values.
+    """
+    # Ensure the column exists in the DataFrame
+    if column_name not in df.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    # Add a leading zero only to values with 8 characters
+    df[column_name] = df[column_name].astype(str).apply(
+        lambda x: f"0{x}" if len(x) == 8 else x
+    )
+
+    return df
+
+# Apply the function to add a leading zero to the 'rtn' column for 8-character values
+fomf_top_100 = add_leading_zero_to_eight_char_values(fomf_top_100, 'rtn')
+
+# Display the modified DataFrame
+print(fomf_top_100)
+
+#######################################################
+
+# Checks to see if df has duplicate rows
+
+Python function that takes in a pandas DataFrame and checks for duplicate rows. The function will return either a boolean indicating whether duplicates exist, or a DataFrame containing the duplicate rows for further inspection.
+
+import pandas as pd
+
+def check_for_duplicates(df, return_duplicates=False):
+    """
+    Checks if a DataFrame contains duplicate rows.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to check for duplicates.
+    - return_duplicates (bool): If True, returns the duplicate rows as a DataFrame.
+                                 If False, returns a boolean indicating if duplicates exist.
+
+    Returns:
+    - bool or pd.DataFrame:
+        - If return_duplicates=False: Returns True if duplicates exist, False otherwise.
+        - If return_duplicates=True: Returns a DataFrame of duplicate rows.
+    """
+    # Find duplicate rows
+    duplicate_rows = df[df.duplicated()]
+
+    if return_duplicates:
+        # Return the DataFrame of duplicate rows
+        return duplicate_rows
+    else:
+        # Return True if duplicates exist, False otherwise
+        return not duplicate_rows.empty
+
+# Check if duplicates exist (boolean)
+has_duplicates = check_for_duplicates(df)
+print(f"Does the DataFrame have duplicates? {has_duplicates}")
+
+# Get the duplicate rows (if any)
+duplicate_rows = check_for_duplicates(df, return_duplicates=True)
+print("Duplicate rows:")
+print(duplicate_rows)
+
+########################################################
