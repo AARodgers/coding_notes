@@ -278,3 +278,177 @@ print("Duplicate rows:")
 print(duplicate_rows)
 
 ########################################################
+Python function that takes in a DataFrame and creates a unique ID for each row based on the 5th to 8th digits of the routing number in the rtn column. The unique ID is added as a new column in the DataFrame.
+
+
+import pandas as pd
+
+def create_unique_id(df, routing_column, id_column_name='unique_id'):
+    """
+    Creates a unique ID for each row based on the 5th to 8th digits of the routing number
+    in the specified column and adds it as a new column to the DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to modify.
+    - routing_column (str): The name of the column containing routing numbers.
+    - id_column_name (str): The name of the new column to store the unique IDs (default: 'unique_id').
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with the new unique ID column.
+    """
+    # Ensure the routing column exists in the DataFrame
+    if routing_column not in df.columns:
+        raise ValueError(f"Column '{routing_column}' does not exist in the DataFrame.")
+
+    # Extract the 5th to 8th digits of the routing number and create the unique ID
+    df[id_column_name] = df[routing_column].astype(str).apply(lambda x: x[4:8] if len(x) >= 8 else None)
+
+    return df
+
+# Sample DataFrame
+data = {
+    'bank_name': ['Bank A', 'Bank B', 'Bank C'],
+    'rtn': ['021000021', '123456789', '987654321']
+}
+fomf_df = pd.DataFrame(data)
+
+# Apply the function to create unique IDs based on the 5th-8th digits of the routing number
+fomf_df = create_unique_id(fomf_df, routing_column='rtn')
+
+# Display the modified DataFrame
+print(fomf_df)
+
+#######################################################
+
+# check if a column in a DataFrame has any duplicate values, you can use the duplicated() method in pandas
+
+import pandas as pd
+
+def check_column_duplicates(df, column_name):
+    """
+    Checks if a column in a DataFrame has any duplicate values.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to check.
+    - column_name (str): The name of the column to check for duplicates.
+
+    Returns:
+    - bool: True if duplicates exist, False otherwise.
+    - pd.Series: A Series of duplicate values (if duplicates exist).
+    """
+    # Ensure the column exists in the DataFrame
+    if column_name not in df.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    # Check for duplicates in the column
+    duplicates = df[column_name][df[column_name].duplicated()]
+
+    # Return results
+    if not duplicates.empty:
+        return True, duplicates
+    else:
+        return False, None
+
+# Sample DataFrame
+data = {
+    'bank_name': ['Bank A', 'Bank B', 'Bank C', 'Bank A'],
+    'rtn': ['021000021', '123456789', '987654321', '021000021']
+}
+df = pd.DataFrame(data)
+
+# Check for duplicates in the 'rtn' column
+has_duplicates, duplicate_values = check_column_duplicates(df, 'rtn')
+
+print(f"Does the 'rtn' column have duplicates? {has_duplicates}")
+if has_duplicates:
+    print("Duplicate values:")
+    print(duplicate_values)
+
+#############################################
+
+# Group by routing number and count unique EINs
+grouped = df.groupby('rtn')['ein'].nunique().reset_index()
+grouped.columns = ['Routing Number', 'Unique EIN Count']
+
+# Display routing numbers shared by multiple EINs
+shared_routing_numbers = grouped[grouped['Unique EIN Count'] > 1]
+print(shared_routing_numbers)
+
+#############################################
+
+Yes, it would generally be a **bad idea** to use the **5th–8th digits of the routing number** as the primary key for your DataFrame or dictionary. Here's why:
+
+---
+
+### **Why Using the 5th–8th Digits as a Primary Key is Problematic:**
+1. **Non-Unique Values**:
+   - The **5th–8th digits** of a routing number are not guaranteed to be unique across all routing numbers. Multiple banks or entities may share the same routing number, meaning the extracted digits could repeat, violating the uniqueness requirement of a primary key.
+
+2. **Loss of Granularity**:
+   - By using only part of the routing number (5th–8th digits), you lose the ability to distinguish between entities that share the same routing number but have different EINs or bank names.
+
+3. **Potential Data Integrity Issues**:
+   - If you use non-unique values as a primary key, your DataFrame or dictionary could overwrite data or fail to associate all relevant entities with the same routing number.
+
+---
+
+### **Recommended Approach:**
+
+#### **1. Use a Composite Key**
+Instead of relying solely on the 5th–8th digits of the routing number, consider using a **composite key** that combines multiple columns to ensure uniqueness. For example:
+- Combine `routing number` and `EIN` as the composite key.
+- This ensures that each row is uniquely identified even if multiple entities share the same routing number.
+
+#### **Example in Python**:
+```python
+# Create a composite key by combining 'rtn' and 'ein'
+df['primary_key'] = df['rtn'].astype(str) + "_" + df['ein'].astype(str)
+```
+
+This creates a unique key for each row by concatenating the routing number and EIN. For example:
+- Routing Number: `021000021`, EIN: `123456789` → Primary Key: `021000021_123456789`.
+
+---
+
+#### **2. Group Data by Routing Number**
+If your goal is to create a DataFrame or dictionary that lists all associated **bank names**, **EINs**, and **routing numbers**, you can group the data by routing number and aggregate the associated values.
+
+#### Example:
+```python
+# Group by routing number and aggregate associated bank names and EINs
+grouped_df = df.groupby('rtn').agg({
+    'bank_name': lambda x: list(set(x)),  # List of unique bank names
+    'ein': lambda x: list(set(x))        # List of unique EINs
+}).reset_index()
+
+# Convert to dictionary
+routing_dict = grouped_df.to_dict(orient='records')
+
+print(routing_dict)
+```
+
+#### Output Example:
+```python
+[
+    {'rtn': '021000021', 'bank_name': ['Bank A', 'Bank B'], 'ein': ['123456789', '987654321']},
+    {'rtn': '123456789', 'bank_name': ['Bank C'], 'ein': ['123450000']}
+]
+```
+
+---
+
+### **3. Use a Unique Identifier for Each Row**
+If you need a strict primary key for your DataFrame, you can create a **unique identifier** for each row:
+```python
+df['unique_id'] = df.index  # Use the row index as a unique identifier
+```
+This ensures every row has a unique value, even if the routing numbers or EINs repeat.
+
+---
+
+### **Final Recommendation:**
+- **Composite Key**: Use a combination of routing number and EIN for uniqueness.
+- **Group Data**: If you want to create a summary of routing numbers with associated bank names and EINs, group by routing number and aggregate the data.
+- **Avoid Using Partial Routing Numbers**: The 5th–8th digits alone are insufficient to ensure uniqueness and may lead to data integrity issues.
+
+Let me know if you'd like help implementing these solutions or further refining your approach!
