@@ -451,4 +451,156 @@ This ensures every row has a unique value, even if the routing numbers or EINs r
 - **Group Data**: If you want to create a summary of routing numbers with associated bank names and EINs, group by routing number and aggregate the data.
 - **Avoid Using Partial Routing Numbers**: The 5th–8th digits alone are insufficient to ensure uniqueness and may lead to data integrity issues.
 
-Let me know if you'd like help implementing these solutions or further refining your approach!
+##############################################################
+
+Python function that takes in a DataFrame and groups the data by the routing number (rtn), aggregating associated bank names and EINs into lists. The function returns the new grouped DataFrame.
+
+import pandas as pd
+
+def group_by_routing_number(df, routing_column='rtn', bank_name_column='bank_name', ein_column='ein'):
+    """
+    Groups data by routing number and aggregates associated bank names and EINs into lists.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame containing routing numbers, bank names, and EINs.
+    - routing_column (str): The column name for routing numbers (default: 'rtn').
+    - bank_name_column (str): The column name for bank names (default: 'bank_name').
+    - ein_column (str): The column name for EINs (default: 'ein').
+
+    Returns:
+    - pd.DataFrame: A new DataFrame grouped by routing number, with aggregated bank names and EINs.
+    """
+    # Ensure required columns exist in the DataFrame
+    required_columns = [routing_column, bank_name_column, ein_column]
+    for col in required_columns:
+        if col not in df.columns:
+            raise ValueError(f"Column '{col}' does not exist in the DataFrame.")
+
+    # Group by routing number and aggregate bank names and EINs into lists
+    grouped_df = df.groupby(routing_column).agg({
+        bank_name_column: lambda x: list(set(x)),  # List of unique bank names
+        ein_column: lambda x: list(set(x))        # List of unique EINs
+    }).reset_index()
+
+    return grouped_df
+
+# Sample DataFrame
+data = {
+    'bank_name': ['Bank A', 'Bank B', 'Bank C', 'Bank A'],
+    'rtn': ['021000021', '021000021', '123456789', '021000021'],
+    'ein': ['123456789', '987654321', '123450000', '123456789']
+}
+df = pd.DataFrame(data)
+
+# Apply the function to group data by routing number
+grouped_df = group_by_routing_number(df)
+
+# Display the grouped DataFrame
+print(grouped_df)
+
+         rtn       bank_name                          ein
+0  021000021  [Bank A, Bank B]  [123456789, 987654321]
+1  123456789         [Bank C]               [123450000]
+
+########################################################
+
+# Create new df with 100 random samples of the original df
+import pandas as pd
+
+def random_sample(df, sample_size=100, random_state=None):
+    """
+    Takes a random sample of rows from a DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - sample_size (int): The number of random rows to sample (default: 100).
+    - random_state (int, optional): A seed for reproducibility (default: None).
+
+    Returns:
+    - pd.DataFrame: A new DataFrame containing the random sample.
+    """
+    # Ensure the sample size is not larger than the DataFrame itself
+    if sample_size > len(df):
+        raise ValueError("Sample size cannot be larger than the number of rows in the DataFrame.")
+
+    # Take a random sample
+    sampled_df = df.sample(n=sample_size, random_state=random_state)
+
+    return sampled_df
+
+# Example DataFrame
+data = {
+    'column1': range(1, 7000001),  # Simulating 7 million rows
+    'column2': ['value'] * 7000000
+}
+df = pd.DataFrame(data)
+
+# Take a random sample of 100 rows
+sampled_df = random_sample(df, sample_size=100, random_state=42)
+
+# Display the sampled DataFrame
+print(sampled_df)
+
+#####################################################
+
+To find the maximum and minimum values of a column in a pandas DataFrame, you can use the .max() and .min()
+import pandas as pd
+
+# Sample DataFrame
+data = {
+    'column1': [10, 20, 30, 40, 50],
+    'column2': [5, 15, 25, 35, 45]
+}
+df = pd.DataFrame(data)
+
+# Find the max and min values of a specific column (e.g., 'column1')
+max_value = df['column1'].max()
+min_value = df['column1'].min()
+
+print(f"Max value in column1: {max_value}")
+print(f"Min value in column1: {min_value}")
+
+#######################################################
+
+Calculate the percentage of values in a column below a certain ValueError
+
+import pandas as pd
+
+def percentage_below_threshold(df, column_name, threshold):
+    """
+    Calculates the percentage of values in a specified column that are below a given threshold.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - column_name (str): The name of the column to analyze.
+    - threshold (float or int): The value threshold to compare against.
+
+    Returns:
+    - float: The percentage of values below the threshold.
+    """
+    # Ensure the column exists in the DataFrame
+    if column_name not in df.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    # Calculate the total number of rows
+    total_values = len(df[column_name])
+
+    # Calculate the number of values below the threshold
+    below_threshold_count = (df[column_name] < threshold).sum()
+
+    # Calculate the percentage
+    percentage = (below_threshold_count / total_values) * 100
+
+    return percentage
+
+# Sample DataFrame
+data = {
+    'column1': [10, 20, 30, 40, 50],
+    'column2': [5, 15, 25, 35, 45]
+}
+df = pd.DataFrame(data)
+
+# Calculate the percentage of values in 'column1' below 25
+percentage = percentage_below_threshold(df, column_name='column1', threshold=25)
+
+print(f"Percentage of values below 25 in column1: {percentage:.2f}%")
