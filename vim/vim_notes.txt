@@ -181,3 +181,75 @@ If you want to copy and paste between **vim** and your system clipboard, use the
 ### **Tips for Beginners**
 - Always press **Esc** to ensure you're in **Normal Mode** before using yank and paste commands.
 - If unsure, use Visual Mode (`v`) to highlight text for copying—it’s more intuitive.
+
+
+###########################################################
+
+Basic Navigation
+h: Move left.
+l: Move right.
+j: Move down.
+k: Move up.
+0: Move to the beginning of the current line.
+$: Move to the end of the current line.
+w: Jump to the start of the next word.
+e: Move to the end of the current/next word.
+b: Jump to the beginning of the previous word.
+gg: Move to the beginning of the file.
+G: Move to the end of the file.
+Ctrl-d: Scroll down half a page.
+Ctrl-u: Scroll up half a page.
+Editing Text
+i: Enter insert mode (start typing before the cursor).
+a: Enter insert mode (start typing after the cursor).
+o: Open a new line below the current line and enter insert mode.
+O: Open a new line above the current line and enter insert mode.
+x: Delete the character under the cursor.
+dd: Delete the current line.
+d$: Delete everything from the cursor to the end of the line.
+d0: Delete everything from the cursor to the beginning of the line.
+u: Undo the last action.
+Ctrl-r: Redo the last undone action.
+yy: Copy (yank) the current line.
+p: Paste the copied/yanked text after the cursor.
+P: Paste the copied/yanked text before the cursor.
+cw: Change (replace) the current word.
+cc: Change (replace) the entire current line.
+Search and Replace
+/text: Search forward for "text."
+?text: Search backward for "text."
+n: Move to the next search match.
+N: Move to the previous search match.
+:%s/old/new/g: Replace all occurrences of "old" with "new" in the file.
+:s/old/new/g: Replace all occurrences of "old" with "new" in the current line.
+Saving and Exiting
+:w: Save the file.
+:q: Quit Vim.
+:wq: Save and quit Vim.
+:x: Save and quit (like :wq).
+:q!: Quit without saving changes.
+Visual Mode
+v: Enter visual mode (select text character by character).
+V: Enter visual line mode (select entire lines).
+Ctrl-v: Enter visual block mode (select rectangular blocks).
+y: Yank (copy) the selected text.
+d: Delete the selected text.
+>: Indent the selected text.
+<: Unindent the selected text.
+File Management
+:e filename: Open a file named "filename."
+:w filename: Save the file as "filename."
+:saveas filename: Save the current file with a new name.
+:split filename: Open "filename" in a horizontal split.
+:vsplit filename: Open "filename" in a vertical split.
+Ctrl-w + w: Switch between split windows.
+:close: Close the current split window.
+Other Useful Commands
+.: Repeat the last command.
+:%y+: Copy the entire file to the system clipboard (requires clipboard support).
+:set nu: Show line numbers.
+:set nonu: Hide line numbers.
+:set hlsearch: Highlight search matches.
+:set nohlsearch: Turn off search highlighting.
+:set ignorecase: Make searches case-insensitive.
+:set smartcase: Make searches case-sensitive if the query contains uppercase letters.

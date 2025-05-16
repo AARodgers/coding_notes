@@ -42,3 +42,59 @@ metrics = calculate_metrics_from_excel(file_path)
 print(metrics)
 
 
+##############################################################
+
+Here’s a Python function that calculates and prints out precision, accuracy, F1-score, and recall based on the input values for True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN):
+
+def calculate_metrics(tp, tn, fp, fn):
+    """
+    Calculates and prints precision, accuracy, F1-score, and recall based on TP, TN, FP, FN.
+
+    Parameters:
+    - tp (int): True Positives
+    - tn (int): True Negatives
+    - fp (int): False Positives
+    - fn (int): False Negatives
+
+    Returns:
+    - dict: A dictionary containing precision, accuracy, recall, and F1-score.
+    """
+    # Calculate precision
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+
+    # Calculate recall
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+
+    # Calculate accuracy
+    accuracy = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) > 0 else 0
+
+    # Calculate F1-score
+    f1_score = (2 * precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+
+    # Print metrics
+    print(f"Precision: {precision:.2f}")
+    print(f"Recall: {recall:.2f}")
+    print(f"Accuracy: {accuracy:.2f}")
+    print(f"F1-Score: {f1_score:.2f}")
+
+    # Return metrics as a dictionary
+    return {
+        "precision": precision,
+        "recall": recall,
+        "accuracy": accuracy,
+        "f1_score": f1_score
+    }
+
+# Example input values for TP, TN, FP, FN
+tp = 50  # True Positives
+tn = 30  # True Negatives
+fp = 10  # False Positives
+fn = 20  # False Negatives
+
+# Calculate and print metrics
+metrics = calculate_metrics(tp, tn, fp, fn)
+
+# Access metrics as a dictionary
+print(metrics)
+
+
