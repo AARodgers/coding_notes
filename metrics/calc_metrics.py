@@ -97,4 +97,38 @@ metrics = calculate_metrics(tp, tn, fp, fn)
 # Access metrics as a dictionary
 print(metrics)
 
+####################################
 
+# To visualize which threshold is best using precision, recall and F1 scores
+
+import matplotlib.pyplot as plt
+
+thresholds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+precision = [0.33, 0.40, 0.44, 0.43, 0.71, 0.83, 0.91]
+recall = [0.10, 0.40, 0.80, 0.90, 0.96, 0.98, 1.00]
+f1_score = [0.15, 0.40, 0.57, 0.58, 0.82, 0.90, 0.95]
+
+plt.figure(figsize=(10, 6))
+plt.plot(thresholds, precision, label='Precision', marker='o')
+plt.plot(thresholds, recall, label='Recall', marker='o')
+plt.plot(thresholds, f1_score, label='F1-Score', marker='o')
+plt.xlabel('Threshold')
+plt.ylabel('Metric Value')
+plt.title('Precision, Recall, and F1-Score vs Threshold')
+plt.legend()
+plt.grid()
+plt.show()
+
+############################################################
+
+Threshold Range	TP	FP	TN	FN	Precision	Recall	FPR	F1-Score
+0.0–0.1	0	0	1000	50	N/A	0.00	0.00	N/A
+0.1–0.2	5	10	990	45	0.33	0.10	0.01	0.15
+0.2–0.3	20	30	970	30	0.40	0.40	0.03	0.40
+0.3–0.4	40	50	950	10	0.44	0.80	0.05	0.57
+0.4–0.5	45	60	940	5	0.43	0.90	0.06	0.58
+0.5–0.6	48	20	980	2	0.71	0.96	0.02	0.82
+0.6–0.7	49	10	990	1	0.83	0.98	0.01	0.90
+0.7–1.0	50	5	995	0	0.91	1.00	0.005	0.95
+
+################################################
