@@ -834,3 +834,74 @@ print("\nConfirmation of string object type in specified columns:")
 print(confirmation)
 
 #####################################################
+
+# Make indexes a column in a DataFrame
+def index_to_column(df, index_name='index'):
+    """
+    Converts the index of a DataFrame to a column.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - index_name (str): The name of the new column for the index (default: 'index').
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with the index as a column.
+    """
+    # Reset the index and convert it to a column
+    df.reset_index(inplace=True)
+    df.rename(columns={'index': index_name}, inplace=True)
+
+    return df
+# Example usage
+df = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4, 5, 6]
+})
+df = index_to_column(df, index_name='row_index')
+print(df)
+###################################################
+
+# Clean phone numbers by eliminating special characters and returning as a string
+def clean_phone_number(df: pd.DataFrame, phone_col: str='phone_number'):
+    """
+    Cleans a phone number by removing special characters and returning it as a string.
+
+    Parameters:
+    - phone_number (str): The input phone number.
+
+    Returns:
+    - str: The cleaned phone number.
+    """
+    # # Remove special characters and return as a string
+    # cleaned_number = ''.join(filter(str.isdigit, phone_number))
+    # return cleaned_number
+    def clean_phone_number(phone_number):
+        return re.sub(r'\D', '', phone_number)
+        # Apply cleaning function
+        df[phone_column] = df[phone_column].apply(clean_phone_number)
+    return df
+
+#################################
+
+def standardize_emails(df:pd.DataFrame, email_col:str='email') -> pd.DataFrame:
+
+    """
+    Standardizes email addresses by converting them to lowercase and removing leading/trailing spaces.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - email_col (str): The name of the column containing email addresses (default: 'email').
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with standardized email addresses.
+    """
+    # Ensure the email column exists in the DataFrame
+    if email_col not in df.columns:
+        raise ValueError(f"Column '{email_col}' does not exist in the DataFrame.")
+
+    # Standardize email addresses
+    df[email_col] = df[email_col].apply(lambda x: x.strip().lower() if isinstance(x, str) else x)
+
+
+    return df
+ ##################################################################
