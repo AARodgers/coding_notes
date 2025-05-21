@@ -130,7 +130,19 @@ result = df1.append(df2, ignore_index=True)
 | `pd.merge()`       | Combine based on a common column or index    | SQL-like joins               |
 | `append()`         | Add rows to the end of another DataFrame      | Deprecated, use `concat`     |
 
----
+
+# Combine two DataFrames into one
+
+# if  both df have smae columns, just stack on top of each other
+# ignore_index=True resets the index in the combined DataFrame
+combined_df = pd.concat([df1, df2], ignore_index=True)
+
+# if df have same number of rows you can combine horizontally
+# axis=1 combines the DataFrames column-wise (colmns will be added to the right)
+combined_df = pd.concat([df1, df2], axis=1)
+
+# combine df using a common key(join/merge(
+combined_df = pd.merge(df1, df2, on='common_column'))
 
 ###################################
 
@@ -604,3 +616,88 @@ df = pd.DataFrame(data)
 percentage = percentage_below_threshold(df, column_name='column1', threshold=25)
 
 print(f"Percentage of values below 25 in column1: {percentage:.2f}%")
+
+
+####################################################
+ # Calculate null values in each column of a DataFrame
+ # NOTE: Returns a Series with the count of null values for each column
+ def calculate_null_values(df):
+     """
+     Calculates the number of null values in each column of a DataFrame.
+
+     Parameters:
+     - df (pd.DataFrame): The input DataFrame.
+
+     Returns:
+     - pd.Series: A Series with the count of null values for each column.
+     """
+     return df.isnull().sum()
+ # Example usage
+    df = pd.DataFrame({
+        'A': [1, 2, None, 4],
+        'B': [None, 'banana', 'apple', None],
+        'C': [1.0, 2.5, 3.5, None]
+    })
+    null_counts = calculate_null_values(df)
+    print(null_counts)
+
+#############################
+# Calculate percentage of null values in each column of a DataFrame
+def calculate_null_percentage(df):
+    """
+    Calculates the percentage of null values in each column of a DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+    - pd.Series: A Series with the percentage of null values for each column.
+    """
+    total_values = len(df)
+    null_counts = df.isnull().sum()
+    null_percentage = (null_counts / total_values) * 100
+    return null_percentage
+# Example usage
+df = pd.DataFrame({
+    'A': [1, 2, None, 4],
+    'B': [None, 'banana', 'apple', None],
+    'C': [1.0, 2.5, 3.5, None]
+})
+null_percentage = calculate_null_percentage(df)
+print(null_percentage)
+# Example output:
+# A    25.0
+# B    50.0
+
+################################################
+ # Calculat the distribution of distinct values in each column of a DataFrame
+ # Returns a dictionary wher ethe key is a column name and the value is a Series with the distribution of distinct values
+ def distinct_value_distribution(df, column_name):
+     """
+     Calculates the distribution of distinct values in a specified column of a DataFrame.
+
+     Parameters:
+     - df (pd.DataFrame): The input DataFrame.
+     - column_name (str): The name of the column to analyze.
+
+     Returns:
+     - pd.Series: A Series with the distribution of distinct values in the specified column.
+     """
+     if column_name not in df.columns:
+         raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+     return df[column_name].value_counts(normalize=True)
+
+    distribution_dict = {}
+    for column in df.columns:
+        distribution = df[column].value_counts(normalize=True) * 100
+        distribution_dict[column] = distribution
+    return distribution_dict
+
+# Example usage
+distribution = distinct_value_distribution(df)
+print("Distribution of distinct values in each column:")
+for column, distribution in distribution.items():
+    print(f"\nColumn: {column}")
+    print(distribution)
+
+#######################################################
