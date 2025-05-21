@@ -262,7 +262,20 @@ The Python debugger (`pdb`) allows you to pause execution at a specific line and
    - `c`: Continue execution.
    - `q`: Quit the debugger.
 
----
+Debugger Commands
+Here are common commands you can use once you’re in the debugger session:
+
+h or help: Displays a list of available commands.
+q or quit: Quit the debugger and terminate the program.
+n or next: Execute the next line of code.
+c or continue: Continue execution until the next breakpoint.
+l or list: Show the code around the current line.
+p or print <variable>: Print the value of a variable or expression.
+Example: p a prints the value of a.
+s or step: Step into a function call to debug inside the function.
+r or return: Continue execution until the current function returns.
+b <line_number>: Set a breakpoint at a specific line.
+w or where: Show the current position in the program call stack.
 
 ### **2. Comment Out Code Below the Desired Line**
 You can temporarily comment out the lines of code below the point where you want execution to stop.

@@ -143,3 +143,127 @@ Article:
 https://www.digitalocean.com/community/tutorials/how-to-use-args-and-kwargs-in-python-3
 
 
+#############################
+
+Python script that follows your requirements. We'll use the sys module to handle arguments passed to the script and pandas for loading the CSV files into dataframes.
+Here’s a Python script that follows your requirements. We'll use the `sys` module to handle arguments passed to the script and `pandas` for loading the CSV files into dataframes.
+
+---
+
+### Script: `load_dataframes.py`
+
+```python
+import sys
+import pandas as pd
+
+def load_dataframe(file_path):
+    """Loads a CSV file into a Pandas DataFrame."""
+    try:
+        df = pd.read_csv(file_path)
+        print(f"Loaded dataframe from {file_path}")
+        return df
+    except FileNotFoundError:
+        print(f"Error: The file at path {file_path} was not found.")
+        sys.exit(1)
+    except pd.errors.EmptyDataError:
+        print(f"Error: The file at {file_path} is empty or invalid.")
+        sys.exit(1)
+    except Exception as e:
+        print(f"An unexpected error occurred while loading {file_path}: {e}")
+        sys.exit(1)
+
+def main():
+    """Main function to handle system arguments and load CSV files into DataFrames."""
+    if len(sys.argv) != 3:
+        print("Usage: python load_dataframes.py <path_to_dataframe1.csv> <path_to_dataframe2.csv>")
+        sys.exit(1)
+
+    # Get file paths from system arguments
+    df1_path = sys.argv[1]
+    df2_path = sys.argv[2]
+
+    # Load the DataFrames
+    df1 = load_dataframe(df1_path)
+    df2 = load_dataframe(df2_path)
+
+    # Print a summary of the DataFrames
+    print("\n--- DataFrame 1 Summary ---")
+    print(df1.info())
+    print("\n--- DataFrame 2 Summary ---")
+    print(df2.info())
+
+if __name__ == '__main__':
+    main()
+```
+
+---
+
+### How It Works:
+1. **CSV Loading with `pandas`:** The script includes a `load_dataframe` function that loads a CSV file into a Pandas DataFrame.
+2. **System Arguments Handling:** The script expects exactly two arguments passed via the command line—paths to the two CSV files.
+3. **Error Handling:** The script includes error handling for common issues, such as missing files, empty files, or invalid CSV formatting.
+4. **Summarize the Loaded Data:** After loading, it prints a summary (`info()`) of each DataFrame to ensure they are loaded correctly.
+
+---
+
+### Running the Script:
+1. Save the script as `load_dataframes.py`.
+2. Run it from the command line, passing the file paths as arguments:
+   ```bash
+   python load_dataframes.py path_to_dataframe1.csv path_to_dataframe2.csv
+   ```
+
+Example:
+```bash
+python load_dataframes.py data1.csv data2.csv
+```
+
+---
+
+### Sample `data1.csv`:
+```csv
+id,name,age
+1,Amanda,30
+2,John,25
+3,Emily,35
+```
+
+### Sample `data2.csv`:
+```csv
+id,department,salary
+1,Marketing,55000
+2,Sales,60000
+3,HR,52000
+```
+
+---
+
+### Output Example:
+```plaintext
+Loaded dataframe from data1.csv
+Loaded dataframe from data2.csv
+
+--- DataFrame 1 Summary ---
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3 entries, 0 to 2
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype
+---  ------  --------------  -----
+ 0   id      3 non-null      int64
+ 1   name    3 non-null      object
+ 2   age     3 non-null      int64
+
+--- DataFrame 2 Summary ---
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3 entries, 0 to 2
+Data columns (total 3 columns):
+ #   Column      Non-Null Count  Dtype
+---  ----------  --------------  -----
+ 0   id          3 non-null      int64
+ 1   department  3 non-null      object
+ 2   salary      3 non-null      int64
+```
+
+---
+
+#######################################
