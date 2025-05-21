@@ -701,3 +701,136 @@ for column, distribution in distribution.items():
     print(distribution)
 
 #######################################################
+# Show the top and last 10 values of a certain column in a DataFrame
+def show_top_and_last_n_values(df, column_name, n=10):
+    """
+    Displays the top and last n values of a specified column in a DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - column_name (str): The name of the column to display values from.
+    - n (int): The number of top and last values to display (default: 10).
+    """
+    if column_name not in df.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    top_values = df[column_name].head(n)
+    last_values = df[column_name].tail(n)
+
+    print(f"Top {n} values in '{column_name}':")
+    print(top_values)
+    print(f"\nLast {n} values in '{column_name}':")
+    print(last_values):
+
+# Example usage
+df = pd.DataFrame({
+    'A': range(1, 101),
+    'B': ['value'] * 100
+})
+show_top_and_last_n_values(df, column_name='A', n=10)
+
+###############################################################
+
+# Delete certain columns from a DataFrame
+def delete_columns(df, columns_to_delete):
+    """
+    Deletes specified columns from a DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - columns_to_delete (list): A list of column names to delete.
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with specified columns deleted.
+    """
+    # Ensure the columns exist in the DataFrame
+    for col in columns_to_delete:
+        if col not in df.columns:
+            raise ValueError(f"Column '{col}' does not exist in the DataFrame.")
+
+    # Delete the specified columns
+    df = df.drop(columns=columns_to_delete)
+
+    return df
+# Example usage
+df = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4, 5, 6],
+    'C': [7, 8, 9]
+})
+columns_to_delete = ['B', 'C']
+df = delete_columns(df, columns_to_delete)
+print(df)
+
+###################################################
+
+# Convert some columns to string object in a DataFrame
+def convert_columns_to_string(df, columns_to_convert):
+    """
+    Converts specified columns in a DataFrame to string type.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - columns_to_convert (list): A list of column names to convert to string.
+
+    Returns:
+    - pd.DataFrame: The modified DataFrame with specified columns converted to string.
+    """
+    # Ensure the columns exist in the DataFrame
+    for col in columns_to_convert:
+        if col not in df.columns:
+            raise ValueError(f"Column '{col}' does not exist in the DataFrame.")
+
+    # Convert the specified columns to string type
+    df[columns_to_convert] = df[columns_to_convert].astype(str)
+
+    return df
+# Example usage
+df = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4.5, 5.5, 6.5],
+    'C': [True, False, True]
+})
+columns_to_convert = ['A', 'B']
+df = convert_columns_to_string(df, columns_to_convert)
+print(df.dtypes)
+# Example output:
+# A    object
+# B    object
+#################################################################
+
+# Confirm the object datatype is a string object
+def confirm_string_object(df, exclude_columns):
+    """
+    Confirms if the specified columns in a DataFrame are of string object type.
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame.
+    - exclude_columns (list): A list of column names to exclude from the check.
+    Returns:
+    - bool: True if all specified columns are string object type, False otherwise.
+    """
+    # Ensure the columns exist in the DataFrame
+    for col in df.columns:
+        if col not in df.columns:
+            raise ValueError(f"Column '{col}' does not exist in the DataFrame.")
+
+    confirmation_dict = {}
+    for col in df.columns:
+        if col not in exclude_columns:
+            confirmation_dict[col] = df[col].dtype == 'object':
+                confirmation_dict[col] = df[col].apply(lambda x: isinstance(x, str)).all()
+    return confirmation_dict
+# Example usage
+df = pd.DataFrame({
+    'A': ['1', '2', '3'],
+    'B': [4.5, 5.5, 6.5],
+    'C': ['True', 'False', 'True']
+})
+exclude_columns = ['B']
+confirmation = confirm_string_object(df, exclude_columns)
+print("\nData types in columns: ")
+print(df.dtypes)
+print("\nConfirmation of string object type in specified columns:")
+print(confirmation)
+
+#####################################################
