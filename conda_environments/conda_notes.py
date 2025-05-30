@@ -112,4 +112,13 @@ conda env export --file environment.yml
 # To export the current environment to a YAML file
 
 
-
+# Once you create a new conda env, you need to provide the kernel for jupyter:
+python -m ipykernel install --user --name=<env_name> --display-name "<Display Name>"
+# To remove a kernel from Jupyter:
+jupyter kernelspec uninstall <env_name>
+# To list all available kernels in Jupyter:
+jupyter kernelspec list
+# To update conda itself
+conda update conda
+# To update all packages in the current environment
+conda update --all

@@ -317,3 +317,47 @@ git push origin --delete branch_name
 ```bash
 git push origin :branch_name
 ```
+# to see how many unpushed commits on a branch:
+git checkout branch_name
+git fetch origin
+git log origin/branch_name..branch_name --oneline
+```
+
+# to create a local repo that does not have an upstream branch:
+mkdir folder_name # create a new directory
+cd folder_name # navigate into the directory
+git init # initialize a new Git repository
+git branch -m  main # rename the default branch to main (optional)
+echo "Hello, World!" > README.md # create a README file
+git add README.md # stage the README file
+git commit -m "Initial commit" # commit the staged file
+
+
+# to disregard untracked files ( ex.changes to .ipynb file you opened but didn't change anything):
+git checkout--path_to/file.ipynb
+```
+# to disregard changes to a file that has been modified:
+git checkout-- . # to disregard changes to all files in the current directory
+
+git clean -f # to remove untracked files
+git clean -f path_to/file.ipynb # to remove a specific untracked file
+
+# to delete branches from remote repo but keep locally:
+git fetch --all # to fetch all branches from remote
+git checkout branch_name # switch to the branch you want to keep locally
+git push origin --delete branch_name # to delete the branch from remote
+
+
+# to see all branches:
+git branch -a # to see all branches, both local and remote
+git fetch --all # to fetch all branches from remote
+git branch -r # to see only remote branches
+
+
+# to see changes in an untracked file:
+git add # stage files
+git diff --cached # see changes in staged files
+
+
+# to change upstream url:
+git remote set -url origin <new_url>
