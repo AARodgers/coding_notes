@@ -75,5 +75,54 @@ tail -n 5 file_name.txt # to see the last 5 lines of a file
 wc file_name.txt # to count the number of lines, words, and characters in a file
 example output:
 7 7  42 file_name.txt # means there are 7 lines, 7 words, and 42 characters in the file
+# it will count new line characters as well
 
+wc -l file_name.txt # to count the number of lines in a file
+wc -w file_name.txt # to count the number of words in a file
+wc -c file_name.txt # to count the number of characters in a file
+
+sort file_name.txt # to sort the contents of a file in alphabetical order
+sort -r file_name.txt # to sort the contents of a file in reverse alphabetical order
+
+uniq file_name.txt # to remove duplicate lines from a file, only will remove consecutive duplicates
+
+grep 'search_term' file_name.txt # to search for a term in a file,
+# ex. ch to search for the term 'ch' in the file, will return all names with 'ch' in them
+grep -i 'search_term' file_name.txt # to search for a term in a file, case insensitive
+
+cut -c 1-5 file_name.txt # to cut the first 5 characters from each line of a file
+cut -d ' ' -f 2 file_name.txt # to cut the second field from each line of a file,
+# where fields are separated by spaces ( -d is the delimiter, -f is the field number)
+
+paste file1.txt file2.txt # to merge two files side by side, will merge rows
+# Ex. one file has first name and second last name, you can combine them
+
+paste -d "," file1.txt file2.txt # to merge two files side by side, with a comma as the
+# delimiter  Ex. one file has first name and second last name,
+# output: Alan, Turing
+
+head file_name.txt # to see top 10 lines of a file
+head -n 3 file_name.txt # to see top 3 lines of a file
+tail file_name.txt # to see bottom 10 lines of a file
+tail -n 3 file_name.txt # to see bottom 3 lines of a file
+
+Some frequently used options for grep include:
+
+Option	Description
+-n	Along with the matching lines, also print the line numbers
+-c	Get the count of matching lines
+-i	Ignore the case of the text while matching
+-v	Print all lines which do not contain the pattern
+-w	Match only if the pattern matches whole words
+
+cut -c -2 zoo.txt # to cut the first 2 characters from each line of a file
+cut -c 2- zoo.txt # to cut from the second character to the end of each line of a file
+cut -d "," -f2 names_and_numbers.csv # to cut the line on a certain delimiter
+# comma in this case and return
+# -d "," tells the command that the delimiter is a comma, and -f2 tells it to extract the second field.
+
+# Then use the paste command to view the two files merged together, line-by-line, as columns delimited by a Tab character:
+paste zoo.txt zoo_ages.txt # merge two files data together
+# Try changing the delimiter. Instead of the default Tab delimiter, you can specify a comma , as follows:
+paste -d "," zoo.txt zoo_ages.txt
 
