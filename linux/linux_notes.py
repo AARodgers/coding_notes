@@ -669,3 +669,13 @@ mv ~/path/to/data /home/username/splink/fake_data
 rm -r directory_name
 ```
 # Replace `directory_name` with the name of the directory you want to erase.
+
+# recursively list files in a directory
+ls -r
+
+# to archive a directory and all subdirectories and files, you can use the `tar` command:
+tar -cf notes.tar notes
+# the c option stands for "create" and the f option specifies the filename of the archive.
+#  This command creates an archive file named `notes.tar` containing the `notes` directory and all its contents.
+# To extract the contents of the archive, you can use:
+tar -xf notes.tar
