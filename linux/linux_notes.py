@@ -891,6 +891,16 @@ curl  <url>
 Download file from a URL:
 wget  <url>
 
+echo $PATH
+$PATH refers to the value stored in the environment variable named PATH.
+echo $PATH prints that value, which is a colon-separated list of directories that your system searches for executable files.
+would print the paths stored in your system’s PATH variable
+
+Which common networking command displays information regarding your system’s communication devices:
+ip
+Displays and manages network interfaces, routing, IP addresses, and more.
+Example: ip addr shows detailed info about your system’s communication devices.
+
+
+
 ##### End of Linux Cheat Sheet #######################
-
-
