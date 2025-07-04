@@ -679,3 +679,23 @@ tar -cf notes.tar notes
 #  This command creates an archive file named `notes.tar` containing the `notes` directory and all its contents.
 # To extract the contents of the archive, you can use:
 tar -xf notes.tar
+
+
+## Summary of linux commands ##########################################
+
+Relative paths are relative to your current working directory, while absolute paths stand independently
+
+You can create files and directories with the `touch` and `mkdir` commands, delete them with `rm` and `rmdir`, and copy and move them `cp` and `mv`.
+
+The `cat`, `more`, `head`, and `tail` commands allow you to sort and view file contents or view only a certain number of lines. Determine line, word, and character counts with `wc`.
+
+You can use `sort` to view the lines of a file alphanumerically and `uniq` to remove repeated lines from your view. `grep` gets the lines of a file that match your desired criteria, and `cut` extracts slices and fields from lines. You can merge lines from different files using `paste`.
+
+`hostname` and `ip` allow you to view the network configuration. You can test a network connection using `ping` and send and receive data using `curl` and `wget`.
+
+Compression preserves storage space, speeds data transfer, and reduces system load.
+
+`zip` compresses files and folders prior to archiving them. `tar` archives and compresses files and directories into a tarball. `unzip` unpacks and decompresses a zipped archive, and `tar` can also decompress and unpack a tar.gz archive.
+
+#### End summary of linux commands ###############################
+
