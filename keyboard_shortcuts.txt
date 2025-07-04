@@ -1,0 +1,2 @@
+Ctrl+Shift+H to open the Find/Replace In Files sidebar
+

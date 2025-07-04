@@ -126,13 +126,13 @@ Remove your user execute permissions on test using the following command:
 1
 chmod u-x test
 
-Copied!
+
 Now, what happens when you try to change directories to test?
 
 1
 cd test
 
-Copied!
+
 You get an error message!
 
 bash: cd: test: Permission denied
@@ -166,5 +166,3 @@ mkdir test_again
 hrows the error:
 
 mkdir: cannot create directory ‘test_again’: Permission denied
-
-
