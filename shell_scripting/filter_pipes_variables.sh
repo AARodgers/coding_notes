@@ -35,3 +35,31 @@ echo -e "banana\napple\norange\nbanana" | sort | uniq
 # tr ( translate) replaces character in input text but only accepts standard input (usually keyboard) BUT NOT strings or filenames
 # Example: echo "hello world" | tr "h" "H"
 echo "hello world" | tr "h" "H"
+tr [OPTIONS] [target characters] [replacement characters]
+
+# With strings, you can use echo in combination with tr to replace all the vowels in a string with underscores _:
+echo "hello world" | tr "aeiou" "_"
+
+# Replace all the consonants (any letter that is not a vowel) with an underscore - you can use the -c option
+echo "hello world" | tr -c "aeiou" "_"
+
+
+
+# With files, you can use cat in combination with tr to change all of the text in a file to uppercase as follows:
+$ cat pets.txt | tr "[a-z]" "[A-Z]"
+$ cat pets.txt | tr "[a-z]" "[A-Z]"
+GOLDFISH
+DOG
+CAT
+PARROT
+DOG
+GOLDFISH
+GOLDFISH
+# could add uniq to the above pipeline to only return unique lines in the file
+$ sort pets.txt | uniq | tr "[a-z]" "[A-Z]"
+CAT
+DOG
+GOLDFISH
+PARROT
+
+
