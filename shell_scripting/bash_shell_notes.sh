@@ -98,3 +98,87 @@ $ cd $here
 # Command Mode runs in parallel, multiple commands at the same time
 # example: command1 & command2 ( command1 and command2 will run at the same
  # command1 runs in the background and then passes command to command2
+
+
+# BASH SCRIPT CONDITIONALS ( if, then, else, elif)
+if [ condition ]
+then
+    statement_block_1
+else
+    statement_block_2
+fi
+
+# Tips:
+# You must always put spaces around your condition within the square brackets [ ].
+# Every if condition block must be paired with a fi to tell Bash where the condition block ends.
+# The else block is optional but recommended. If the condition evaluates to false without an else block, then nothing happens within the if condition block.
+# onsider options such as echoing a comment in statement_block_2 to indicate that the condition was evaluated as false.
+
+
+# example, the condition is checking whether the number of command-line arguments read by some Bash script, $#, is equal to 2.
+if [[ $# == 2 ]]
+then
+  echo "number of arguments is equal to 2"
+else
+  echo "number of arguments is not equal to 2"
+fi
+
+# string comparisons. For example, assume you have a variable called string_var that has the value "Yes" assigned to it.
+# Then the following statement evaluates to true
+if [[ $string_var == "Yes" ]]
+then
+  echo "string_var is equal to Yes"
+else
+  echo "string_var is not equal to Yes"
+fi
+
+# Multiple conditions
+if [ condition1 ] && [ condition2 ]
+then
+    echo "conditions 1 and 2 are both true"
+else
+    echo "one or both conditions are false"
+fi
+
+if [ condition1 ] || [ condition2 ]
+then
+    echo "conditions 1 or 2 are true"
+else
+    echo "both conditions are false"
+fi
+
+# Logical operators
+$a == 2
+# if variable a has a value of 2, then the condition evaluates to true
+a != 2
+# if variable a does not have a value of 2, then the condition evaluates to true
+a <= 3
+# if variable a has a value less than or equal to 3, then the condition evaluates to true
+
+# Alternatively, you can use the equivalent notation -le in place of <=:
+a=1
+b=2
+if [ $a -le $b ]
+then
+   echo "a is less than or equal to b"
+else
+   echo "a is not less than or equal to b"
+fi
+
+# ARITHMETIC CALCULATIONS WITH NOTATION $(())
+echo $((3+2))
+OR
+a=3
+b=2
+c=$(($a+$b))
+echo $c
+
+# NOTE: Bash natively handles integer arithmetic but does not handle floating-point arithmetic.
+# As a result, it will always truncate the decimal portion of a calculation result.
+echo $((3/2))
+#prints the truncated integer result, 1, not the floating-point number, 1.5
+
+# ARRAYS IN BASH
+# The array is a Bash built-in data structure. An array is a space-delimited list contained in parentheses.ʊTo create an array,
+# declare its name and contents:
+my_array=(1 2 "three" "four" 5)
