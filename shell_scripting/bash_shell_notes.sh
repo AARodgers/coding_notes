@@ -182,3 +182,52 @@ echo $((3/2))
 # The array is a Bash built-in data structure. An array is a space-delimited list contained in parentheses.ʊTo create an array,
 # declare its name and contents:
 my_array=(1 2 "three" "four" 5)
+# create an empty array by using:
+declare -a empty_array
+# appending one element at a time:
+my_array+=("six")
+my_array+=(7)
+# By using indexing, you can access individual or multiple elements of an array:
+# print the first item of the array:
+echo ${my_array[0]}
+
+# print the third item of the array:
+echo ${my_array[2]}
+
+# print all array elements:
+echo ${my_array[@]}
+
+# FOR LOOPS
+# For example, the following for loops will continue to run over and over again until every element is printed:
+for item in ${my_array[@]}; do
+  echo $item
+done
+
+OR
+
+for i in ${!my_array[@]}; do
+  echo ${my_array[$i]}
+done
+
+#Another way to implement a for loop when you know how many iterations you want is as follows. For example, the following code prints the number 0 through 6.
+N=6
+for (( i=0; i<=$N; i++ )) ; do
+  echo $i
+done
+
+# count the number of items in an array or sum up its elements, as the following Bash script does:
+#!/usr/bin/env bash
+# initialize array, count, and sum
+my_array=(1 2 3)
+count=0
+sum=0
+for i in ${!my_array[@]}; do
+  # print the ith array element
+  echo ${my_array[$i]}
+  # increment the count by one
+  count=$(($count+1))
+  # add the current value of the array to the sum
+  sum=$(($sum+${my_array[$i]}))
+done
+echo $count
+echo $sum
