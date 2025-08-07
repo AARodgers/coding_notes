@@ -1,0 +1,44 @@
+Allows you run automated task like scripts at certain times.
+EX. Run a daily script at same time everyday
+
+Cron is the service that runs the jobs
+
+Crond ( is the daemon) interprets crontab files every minutes and submits the
+script to Cron at the scheduled time.
+
+Crontab is a file that contains jobs and scheduled data.
+Is also a command that allows you edit a crontab file.
+
+$ crontab -e   opens default text editor
+Use editor to specify new schedule or command.
+
+Syntax of schedule:
+m h dom mon dow command
+(minute, hour, day of month, month, and day of week)
+(command can be any shell command, including a call to a shell script )
+
+Need to be a number or *
+Ex: 30 15 * * 0 date >> sundays.txt
+(append the current date to the file ‘sundays.txt’ at 15:30 every Sunday )
+? does 0 = Sunday?
+
+Closing editor and saving changes, adds job to crontab (cron table).
+
+Other examples of cron jobs:
+m h dom mon dow command
+(minute, hour, day of month, month, and day of week)
+30 15 * *  0 date >> path/sunday.txt
+(instructs cron to append the current date to the file ‘sundays.txt,’ at 15:30 every Sunday)
+0 0 * * * /cron_scripts/load_data.sh
+(specifies a “load data” shell script to run at midnight every day)
+0 2 * * 0 /backup_data.sh
+(results in cron running the “backup” data shell script to run at 2 AM on Sundays)
+
+To see list of all cron jobs and schedules:
+$ crontab -l | tail -6
+(tail avoids seeing all of the comments from crontab file)
+
+To remove a job:
+Invoke crontab editor: crontab -e
+Delete the line with the job you want to erase
+Save changes and Exiting

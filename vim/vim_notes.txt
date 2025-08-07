@@ -224,7 +224,7 @@ N: Move to the previous search match.
 :s/old/new/g: Replace all occurrences of "old" with "new" in the current line.
 Saving and Exiting
 :w: Save the file.
-:q: Quit Vim.
+:q: Quit Vim. ( press esc, then type :q!) this quit without saving!
 :wq: Save and quit Vim.
 :x: Save and quit (like :wq).
 :q!: Quit without saving changes.
