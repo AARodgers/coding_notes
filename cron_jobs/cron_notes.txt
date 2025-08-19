@@ -42,3 +42,31 @@ To remove a job:
 Invoke crontab editor: crontab -e
 Delete the line with the job you want to erase
 Save changes and Exiting
+
+Notes about cron jobs:
+
+Cron is a system daemon used to execute desired tasks in the background at designated times.
+
+A crontab file is a simple text file containing a list of commands meant to be run at specified times. It is edited using the crontab command.
+
+Each line in a crontab file has five time-and-date fields, followed by a command, followed by a newline character (\n). The fields are separated by spaces.
+
+The five time-and-date fields cannot contain spaces and their allowed values are as follows:
+
+CRONTAB FILE SYNTAX:
+Field	Allowed values
+minute	0-59
+hour	0-23, 0 = midnight
+day	1-31
+month	1-12
+weekday	0-6, 0 = Sunday
+
+Exercise: Create a cron job
+1. Check for current jobs: crontab -l
+2. Add a cron job: crontab -e ( will open default editor either nano or vim)
+3. Edit file by putting in cron job(nano):
+0 19 * * * echo "Welcome to cron" > /echo.txt
+( specifies that the echo command should run when the minute is 0 and the hour is 19.
+In other words, it means the job runs at 7.00 p.m every day)
+(The output of the command should be sent to a file /echo.txt)
+4. Save changes: Ctrl X ( for nano) and y to confirm and Enter to exit editor
