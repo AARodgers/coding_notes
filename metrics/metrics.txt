@@ -43,17 +43,7 @@ Accuracy is a good metric when the dataset is balanced
 For imbalanced datasets, consider other metrics like precision, recall, or F1-score to better evaluate the model's performance.
 
 --------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-In statistics, **precision** refers to the level of consistency or repeatability of a measurement or estimate. It reflects how much variability exists in repeated measurements or predictions. Precision is a measure of **reliability**, not accuracy (which measures how close a result is to the true value).
+ In statistics, **precision** refers to the level of consistency or repeatability of a measurement or estimate. It reflects how much variability exists in repeated measurements or predictions. Precision is a measure of **reliability**, not accuracy (which measures how close a result is to the true value).
 
 ---
 
