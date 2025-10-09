@@ -1,0 +1,42 @@
+Assignment:
+Extract, Transform, Load (ETL) process to extract daily weather forecast and observed weather data and load it into a live report
+For each day at noon (local time), you will gather both the actual temperature and the temperature forecasted for noon on the following day for Casablanca, Morocco.
+use the weather data package provided by the open source project wttr.in
+
+use the curl command to scrape weather data via the wttr.in website. For example, to get data for Casablanca, enter:
+curl wttr.in/casablanca
+
+After completing this practice project, you will be able to apply your new shell scripting skills in a real-world scenario to:
+
+Download raw weather data
+Extract data of interest from the raw data
+Transform the data as required
+Load the data into a log file using a tabular format
+Schedule the entire process to run automatically at a set time daily
+
+Weather reporting tasks
+You must extract and store the following data every day at noon, local time, for Casablanca, Morocco:
+
+The actual temperature (in degrees Celsius)
+The forecasted temperature (in degrees Celsius) for the following day at noon
+Here is an example of what the the resulting weather report should look like:
+
+year	month	day	obs_tmp	fc_temp
+2023	1	1	10	11
+2023	1	2	11	12
+2023	1	3	12	10
+2023	1	4	13	13
+2023	1	5	10	9
+2023	1	6	11	10
+
+After completing this lab you will be able to create a Bash script to extract,
+transform, and load weather data, schedule it to run daily, and write a script
+to measure forecast accuracy.
+
+Initialize your log file
+Write a Bash script to download, extract, and load raw data into a report
+Add some basic analytics to your report
+Schedule your report to update daily
+Measure and report on historical forecasting accuracy
+
+
