@@ -39,4 +39,20 @@ Add some basic analytics to your report
 Schedule your report to update daily
 Measure and report on historical forecasting accuracy
 
+STEPS:
 
+1. Initialize weaterh report log file (create a text file called: rx_poc.log)
+( text file will contain growing hx of daily weather data that is scraped)
+
+In terminal: touch rx_poc.log
+
+2. Add header to report delimited by tabs ( should be column names from table above)
+Use the echo command with the -e option, and include tab separators \t in a string of names)
+Use a shell variable and command substitution:
+
+header=$(echo -e "year\tmonth\tday\tobs_temp\tfc_temp")
+echo $header>rx_poc.log
+
+OR more directly, use echo and redirection:
+
+echo -e "year\tmonth\tday\tobs_temp\tfc_temp">rx_poc.log
