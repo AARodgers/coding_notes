@@ -39,7 +39,7 @@ Add some basic analytics to your report
 Schedule your report to update daily
 Measure and report on historical forecasting accuracy
 
-STEPS:
+STEPS: ( create folder: weather_project to put everything in)
 
 1. Initialize weaterh report log file (create a text file called: rx_poc.log)
 ( text file will contain growing hx of daily weather data that is scraped)
@@ -51,8 +51,27 @@ Use the echo command with the -e option, and include tab separators \t in a stri
 Use a shell variable and command substitution:
 
 header=$(echo -e "year\tmonth\tday\tobs_temp\tfc_temp")
-echo $header>rx_poc.log
+echo $header>weather_project/rx_poc.log
 
 OR more directly, use echo and redirection:
 
-echo -e "year\tmonth\tday\tobs_temp\tfc_temp">rx_poc.log
+echo -e "year\tmonth\tday\tobs_temp\tfc_temp">weather_project/rx_poc.log
+
+3. Create a text file rx_poc.sh and make it an executable bash script
+3.1 Create file: touch weather_project/rx_poc.sh
+3.2 Add shebang on first line of file:
+
+echo '#!/bin/bash' | cat - weather_project/rx_poc.sh
+ > temp_file && mv temp_file weather_project/rx_poc.sh
+ (this is best practice to add to temp file so don't corrupt original, put to temp and then replace original)
+
+3.3 Make script executable by running following in terminal: chmod u+x rx_poc.sh
+now you can run the file with the command:
+
+./weather_project/rx_poc.sh
+
+4. Assign a city variable to value Casablanca in terminal
+city=Casablanca
+
+5. Obtain weather info on Casablanca from url and save to file named weather_report
+
