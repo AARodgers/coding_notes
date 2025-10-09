@@ -74,4 +74,4 @@ now you can run the file with the command:
 city=Casablanca
 
 5. Obtain weather info on Casablanca from url and save to file named weather_report
-
+curl -s "wttr.in/$city?T" --output weather_project/weather_report
