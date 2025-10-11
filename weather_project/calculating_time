@@ -1,0 +1,30 @@
+ Determine what time of day to run your script
+Recall that you want to load the weather data coresponding to noon, local time, in Casablanca every day.
+
+First, check the time difference between your system's default time zone and UTC.
+
+Click here for Hint 1
+Click here for Solution
+Running the following commands gives you the info you need to get the time difference between your system and UTC.
+
+1
+2
+3
+4
+$ date
+Mon Feb 13 11:28:12 EST 2023
+$ date -u
+Mon Feb 13 16:28:16 UTC 2023
+
+Copied!
+
+Wrap Toggled!
+Now you can determine how many hours difference there are between your system's local time and that of Casablanca.
+In this example, the local time (11:28) is 5 hours behind UTC (16:28). Therefore, the system's time zone (EST) has an offset of UTC-5.
+
+Now, calculate the time difference between your system and Casablanca:
+Casablanca is at UTC+1.Your system is at UTC-5.The time difference is calculated as: (Casablanca UTC offset) - (Your System UTC offset).
+This is: (+1) - (-5) = 6 hours.
+This means Casablanca time is 6 hours ahead of your system's time.
+Thus, to run your script at noon Casablanca time (12:00 UTC+1), you need to run it at 6:00 AM your system time (EST).
+12:00 in Casablanca minus 6 hours = 06:00 (6 AM) on your system.
