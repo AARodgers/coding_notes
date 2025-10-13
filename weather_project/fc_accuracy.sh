@@ -7,6 +7,8 @@
 # It appends the accuracy data to a historical_fc_accuracy.tsv file.
 
 # Calc forecast accuracy
+# extracts a specific forecast temperature value from the second-to-last line of the rx_poc.log file and saves it to the variable yesterday_fc
+# retrieves the value that is located in the 5th column of the second-to-last line of your log file.
 yesterday_fc=$(tail -2 rx_poc.log | head -1 | cut -d " " -f5)
 today_temp=$(tail -1 rx_poc.log | cut -d " " -f4)
 accuracy=$(($yesterday_fc-$today_temp))

@@ -87,3 +87,24 @@ echo -e "year\tmonth\tday\tobs_temp\tfc_temp\taccuracy\taccuracy_range" > histor
 9. Determnine dffferene btwn today's forecasted and actual temp
 a. Extract the forecasted and observed temps for today and store in variable
 ( see fc_accuracy.sh script)
+
+Exercise 5.5: Generalize to all days
+Iterate through your weather log file using a for loop. On each iteration:
+Use head and tail to extract consecutive pairs of lines on each iteration
+This provides you with the current and previous day's data
+Treat this pair of lines like you did in your code as yesterday and today's data
+Perform your accuracy calulations as before
+Use the correct row to extract date information
+Append your resulting data to your historical forecast accuracy report
+
+Exercise 6:
+download a synthetic historical forecasting accuracy report and calculate some basic statistics based on the latest week of data.
+
+First, create an executable bash script called: weekly_stats.sh
+touch weekly_stats.sh
+chmod +x weekly_stats.sh
+
+6.1 download dataset from website (will create file: synthetic_historal_fc_accuracy.tsv)
+wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMSkillsNetwork-LX0117EN-Coursera/labs/synthetic_historical_fc_accuracy.tsv
+
+6.2 Load the historical accuracies into an array covering the last week of data
