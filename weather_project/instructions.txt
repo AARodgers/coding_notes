@@ -83,3 +83,7 @@ Add code to file to include headers:
 echo -e "year\tmonth\tday\tobs_temp\tfc_temp\taccuracy\taccuracy_range" > historical_fc_accuracy.tsv
 
 8. Create an executable Bash script: fc_accuracy.sh
+
+9. Determnine dffferene btwn today's forecasted and actual temp
+a. Extract the forecasted and observed temps for today and store in variable
+( see fc_accuracy.sh script)
