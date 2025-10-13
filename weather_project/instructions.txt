@@ -75,3 +75,11 @@ city=Casablanca
 
 5. Obtain weather info on Casablanca from url and save to file named weather_report
 curl -s "wttr.in/$city?T" --output weather_project/weather_report
+
+6. Create a script to report historical forecasting accuracy (compare to actual temps
+
+7. Create a tab delimited file: historical_fc_accuracy.tsv
+Add code to file to include headers:
+echo -e "year\tmonth\tday\tobs_temp\tfc_temp\taccuracy\taccuracy_range" > historical_fc_accuracy.tsv
+
+8. Create an executable Bash script: fc_accuracy.sh
