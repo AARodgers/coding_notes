@@ -1,0 +1,16 @@
+Task:
+Create a script called backup.sh which runs every day and automatically backs up any encrypted password files that have been updated in the past 24 hours.
+
+There are a total of 20 points to be earned for 17 tasks in this final project.
+Your grade will be based on the following tasks within the hands-on lab:
+
+[Tasks 1-13]: Upload screenshot of sections from the backup.sh script displaying the correct code (13 pts: 1 pt for each of the 13 tasks)
+[Task 14]: Submit your completed backup.sh file (1 pt)
+[Task 15]: Upload screenshot showing executable permissions (2 pts)
+[Task 16]: Upload screenshot showing file named backup-[TIMESTAMP].tar.gz (2 pts)
+[Task 17]: Upload screenshot showing crontab schedule of once every day (2 pts)
+
+Task 0:
+Download the template file backup.sh by running the command below:data_
+wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/pWN3kO2yWEuKMvYJdcLPQg/backup.sh
+
