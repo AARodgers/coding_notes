@@ -108,3 +108,7 @@ chmod +x weekly_stats.sh
 wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMSkillsNetwork-LX0117EN-Coursera/labs/synthetic_historical_fc_accuracy.tsv
 
 6.2 Load the historical accuracies into an array covering the last week of data
+a. First extract the last week of data.
+b. Store the values in a temporary file called scratch.txt. Write the contents of scratch.txt into an array called week_fc.
+
+
