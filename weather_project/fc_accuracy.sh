@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Make file executable with: chmod +x fc_accuracy.sh
+# Run script in terminal with: ./fc_accuracy.sh
+
 # This script calculates the forecast accuracy based on the previous day's forecast and today's observed temperature.
 # It appends the accuracy data to a historical_fc_accuracy.tsv file.
 
