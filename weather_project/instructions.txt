@@ -110,5 +110,12 @@ wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMSkill
 6.2 Load the historical accuracies into an array covering the last week of data
 a. First extract the last week of data.
 b. Store the values in a temporary file called scratch.txt. Write the contents of scratch.txt into an array called week_fc.
+( see script in weekly_stats.sh)
 
-
+6.3 Display min and max absolute forecasting errors for week
+a. use the arry in scratch.txt
+b. Now use your array to calculate the minimum and maximum absolute errors over the last week. For example, if you have a vaule of -1, change it to be 1.
+Echo the minimum and maximum absolute errors to the terminal.
+Check for any negative values in your array, and reassign these array entries with their positve counterparts.
+Initialize two variables, minimum and maximum. Loop over the array values and modify these two variables as required.
+( is bottom of script in weekly_stats.sh)
