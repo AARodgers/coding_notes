@@ -48,7 +48,7 @@ cd # <-
 cd # <-
 
 # [TASK 8]
-yesterdayTS=
+yesterdayTS=$((currentTS - 24 * 60 * 60))
 
 declare -a toBackup
 
