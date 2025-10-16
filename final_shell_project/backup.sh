@@ -24,7 +24,7 @@ echo "The first command line argument is $targetDirectory"
 echo "The second command line argument is $destinationDirectory"
 
 # [TASK 3]
-currentTS=`currentTS=$(date +%s)`
+currentTS=$(date +%s)
 
 # [TASK 4]
 backupFileName="backup-[$currentTS].tar.gz"
@@ -37,20 +37,34 @@ backupFileName="backup-[$currentTS].tar.gz"
 # To make things easier, we will define some useful variables...
 
 # [TASK 5]
-origAbsPath=`/home/project`
+origAbsPath=$(pwd)
 
 # [TASK 6]
-cd # <-
-destDirAbsPath=$(cd "$destinationDirectory" && pwd)
+# destDirAbsPath=$(cd "$destinationDirectory" && pwd) OR
+cd "$destinationDirectory" || exit # Change to the destination directory, or exit if it fails
+destAbsPath=$(pwd)             # Get its absolute path
 
 # [TASK 7]
-cd # <-
-cd # <-
+cd "$origAbsPath"
+cd "$targetDirectory"
 
 # [TASK 8]
 yesterdayTS=$((currentTS - 24 * 60 * 60))
 
+# This declares an array named toBackup
+# Append to array with: myArray+=($myVariable)
 declare -a toBackup
+# When you print or echo an array, you will see its string representation,
+# which is simply all of its values separated by spaces
+# $ declare -a myArray
+# $ myArray+=("Linux")
+# $ myArray+=("is")
+# $ myArray+=("cool!")
+# $ echo ${myArray[@]}
+# Linux is cool!
+# This will be useful later in the script where you will pass the array $toBackup, consisting
+# of the names of all files that need to be backed up, to the tar command. This will archive all files at once!
+
 
 for file in  # [TASK 9]
 do
