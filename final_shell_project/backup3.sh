@@ -29,20 +29,19 @@ currentTS=$(date +%s)
 # [TASK 4]
 backupFileName="backup-[$currentTS].tar.gz"
 
-# We're going to:
+#  We're going to:
   # 1: Go into the target directory
   # 2: Create the backup file
   # 3: Move the backup file to the destination directory
 
-# To make things easier, we will define some useful variables...
+#  To make things easier, we will define some useful variables...
 
 # [TASK 5]
 origAbsPath=$(pwd)
 
 # [TASK 6]
-# destDirAbsPath=$(cd "$destinationDirectory" && pwd) OR
-cd "$destinationDirectory" || exit # Change to the destination directory, or exit if it fails
-destAbsPath=$(pwd)             # Get its absolute path
+cd "$destinationDirectory" || exit
+destAbsPath=$(pwd)
 
 # [TASK 7]
 cd "$origAbsPath"
@@ -51,22 +50,9 @@ cd "$targetDirectory"
 # [TASK 8]
 yesterdayTS=$((currentTS - 24 * 60 * 60))
 
-# This declares an array named toBackup
-# Append to array with: myArray+=($myVariable)
 declare -a toBackup
-# When you print or echo an array, you will see its string representation,
-# which is simply all of its values separated by spaces
-# $ declare -a myArray
-# $ myArray+=("Linux")
-# $ myArray+=("is")
-# $ myArray+=("cool!")
-# $ echo ${myArray[@]}
-# Linux is cool!
-# This will be useful later in the script where you will pass the array $toBackup, consisting
-# of the names of all files that need to be backed up, to the tar command. This will archive all files at once!
 
-
-for file in *  # Loop over all files in the target directory
+for file in *
 do
   if [[ $file_last_modified_date -gt $yesterdayTS ]]
   then
@@ -75,11 +61,7 @@ do
 done
 
 # [TASK 12]
-#After the for loop, compress and archive the files,
-# using the $toBackup array of filenames, to a file with the name backupFileName
 tar -czvf $backupFileName ${toBackup[@]}
 
 # [TASK 13]
 mv "$backupFileName" "$destAbsPath"
-
-# Congratulations! You completed the final project for this course!

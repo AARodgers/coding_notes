@@ -47,3 +47,38 @@ touch target_directory_name/testfile.txt
 ./backup.sh target_directory_name destination_directory_name
 
 =========
+
+Task 16
+Download the following .zip file with the wget command:
+1
+wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-LX0117EN-SkillsNetwork/labs/Final%20Project/important-documents.zip
+
+Copied!
+
+Wrap Toggled!
+Unzip the archive file:
+1
+unzip -DDo important-documents.zip
+
+Copied!
+
+Wrap Toggled!
+Note: -DDo overwrites without restoring original modified date.
+
+Update the file’s last-modified date to now:
+1
+touch important-documents/*
+
+Copied!
+
+Wrap Toggled!
+Test your script using the following command:
+1
+./backup.sh important-documents .
+
+Copied!
+
+Wrap Toggled!
+This should have created a file called backup-[CURRENT_TIMESTAMP].tar.gz in your current directory.
+
+Take a screenshot of the output of ls -l and save it as 16-backup-complete.jpg or .png.
