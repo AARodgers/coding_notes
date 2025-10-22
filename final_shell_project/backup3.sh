@@ -50,6 +50,9 @@ origAbsPath=$(pwd)
 cd "$destinationDirectory" || exit
 destAbsPath=$(pwd)
 
+# Just to check destination library is defined
+echo "destination directory is: $destinationDirectory"
+
 # [TASK 7]
 cd "$origAbsPath"
 cd "$targetDirectory"
