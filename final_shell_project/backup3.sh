@@ -65,6 +65,12 @@ yesterdayTS=$((currentTS - 24 * 60 * 60))
 
 declare -a toBackup
 
+echo "Check toBackup array before loop:"
+# add something to toBackup
+toBackup+=("test_text")
+# see if toBackup array exist and has above value
+echo ${toBackup[@]}
+
 for file in *
 do
   if [[ $file_last_modified_date -gt $yesterdayTS ]]
