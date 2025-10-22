@@ -20,8 +20,8 @@ targetDirectory=$1
 destinationDirectory=$2
 
 # [TASK 2]
-echo "The first command line argument is $targetDirectory"
-echo "The second command line argument is $destinationDirectory"
+echo "Backing up: $targetDirectory"
+echo "To: $destinationDirectory"
 
 # [TASK 3]
 currentTS=$(date +%s)
@@ -68,7 +68,7 @@ declare -a toBackup
 
 for file in *  # Loop over all files in the target directory
 do
-  if [[ $file_last_modified_date -gt $yesterdayTS ]]
+  if [[ $(date -r "$file" +%s) -gt $yesterdayTS ]]
   then
     toBackup+=($file)
   fi

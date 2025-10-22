@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# /home/project/targetDirectory
+# /home/project/destinationDirectory
+# make executable: chmod +x backup.sh
+# run script with arguments:
+# ./backup.sh "/home/project/targetDirectory" "/home/project/destinationDirectory"
+
+
 # This checks if the number of arguments is correct
 # If the number of arguments is incorrect ( $# != 2) print error message and exit
 if [[ $# != 2 ]]
@@ -61,7 +68,7 @@ do
 done
 
 # [TASK 12]
-tar -czvf $backupFileName ${toBackup[@]}
+tar -czvf $backupFileName "${toBackup[@]}"
 
 # [TASK 13]
 mv "$backupFileName" "$destAbsPath"
