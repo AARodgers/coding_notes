@@ -2,9 +2,9 @@
 
 # /home/project/targetDirectory
 # /home/project/destinationDirectory
-# make executable: chmod +x backup.sh
+# make executable: chmod +x backup3.sh
 # run script with arguments:
-# ./backup.sh "/home/project/targetDirectory" "/home/project/destinationDirectory"
+# ./backup3.sh "/Users/amandarodgers/code/coding_notes/final_shell_project/targetDirectory" "/Users/amandarodgers/code/coding_notes/final_shell_project/destinationDirectory"
 
 
 # This checks if the number of arguments is correct
@@ -27,8 +27,8 @@ targetDirectory=$1
 destinationDirectory=$2
 
 # [TASK 2]
-echo "The first command line argument is $targetDirectory"
-echo "The second command line argument is $destinationDirectory"
+echo "Backing up: $targetDirectory"
+echo "To: $destinationDirectory"
 
 # [TASK 3]
 currentTS=$(date +%s)
