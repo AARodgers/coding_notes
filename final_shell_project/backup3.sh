@@ -50,12 +50,15 @@ origAbsPath=$(pwd)
 cd "$destinationDirectory" || exit
 destAbsPath=$(pwd)
 
-# Just to check destination library is defined
+# Just to check destination path is defined
 echo "destination directory is: $destinationDirectory"
 
 # [TASK 7]
 cd "$origAbsPath"
 cd "$targetDirectory"
+
+# Just to check target path is defined
+echo "target directory is: $targetDirectory"
 
 # [TASK 8]
 yesterdayTS=$((currentTS - 24 * 60 * 60))
