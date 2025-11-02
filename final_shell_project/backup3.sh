@@ -73,14 +73,30 @@ echo ${toBackup[@]}
 
 for file in *
 do
-  if [[ $file_last_modified_date -gt $yesterdayTS ]]
+  if [[ $(date -r $file +%s) -gt $yesterdayTS ]]
   then
     toBackup+=($file)
   fi
 done
 
+# Check to see toBackup still correct
+echo " toBackup array should still have file: ${toBackup[@]}"
+# note: will get no directory/file exit because haven't put files
+# because nothing is in targetDirectory yet
+
 # [TASK 12]
-tar -czvf $backupFileName "${toBackup[@]}"
+# tar -czvf "$backupFileName" "${toBackup[@]}"
+
+# [TASK 12] with check
+# remove test/debug entry if present
+# if [[ ${#toBackup[@]} -gt 0 && "${toBackup[0]}" == "test_text" ]]; then
+#   toBackup=("${toBackup[@]:1}")
+# fi
+
+# if [ ${#toBackup[@]} -eq 0 ]; then
+#   echo "No files modified in the last 24 hours; nothing to back up."
+#   exit 0
+# fi
 
 # [TASK 13]
-mv "$backupFileName" "$destAbsPath"
+mv "$backupFileName" "$destinationDirectory"

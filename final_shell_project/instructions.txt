@@ -55,3 +55,53 @@ destAbsPath=$(pwd)             # Get its absolute path
 # (Optional: Change back to the original directory for subsequent tasks)
 # cd "$origAbsPath"
 
+
+# TASK 17
+# copy (use full path to your script)
+sudo cp "/Users/amandarodgers/code/coding_notes/final_shell_project/backup3.sh" /usr/local/bin/backup3.sh
+
+# ensure it's executable
+sudo chmod +x /usr/local/bin/backup3.sh
+
+# verify
+ls -l /usr/local/bin/backup3.sh
+which backup3.sh || echo "/usr/local/bin is in PATH?"
+
+use this:
+sudo cp ./backup.sh /usr/local/bin/backup.sh
+
+
+17.2
+Please note that since the Theia Lab is a virtual environment, we need to explicitly start the cron service using the below command:
+# add/edit crontab interactively
+crontab -e
+# then add the line:
+*/1 * * * * /usr/local/bin/backup.sh /home/project/important-documents /home/project >> /home/project/backup.log 2>&1
+
+Test the cronjob to see if the backup script is getting triggered by scheduling it for every 1 minute.
+
+*/1 * * * * /usr/local/bin/backup.sh /home/project/important-documents /home/project
+
+# ensure cron service is running (you already started it)
+sudo service cron status
+
+# ensure the script is executable and in place
+ls -l /usr/local/bin/backup.sh
+
+# watch cron logs (Ubuntu /cloud labs)
+sudo tail -f /var/log/syslog | grep CRON
+# or
+sudo journalctl -u cron --since "5 minutes ago"
+
+In nano:
+
+Save (write file): Ctrl+O, then Enter to confirm filename
+Exit: Ctrl+X
+Alternate: Press Ctrl+X first — nano will ask "Save modified buffer?" — press Y to save, N to discard, then Enter to confirm filename.
+
+After exiting, verify the crontab was saved:
+
+crontab -l
+
+# run daily at 00:00 (midnight)
+0 0 * * * /usr/local/bin/backup.sh /home/project/important-documents /home/project >> /home/project/backup.log 2>&1
