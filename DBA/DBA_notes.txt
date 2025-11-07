@@ -1,0 +1,92 @@
+Ethical considerations of dba:
+Transparency: When you collect information, you should tell the owners of the information exactly what data you will collect and what you will do with it. Inform them about how you use the data, how you store it, who will have access to it, and how you will dispose of it when you have finished using it.
+Consent: You should get clear consent from data owners before you collect their data. This should detail what data you will be allowed to collect and how you will be allowed to use it.
+Integrity: Always be clear about your procedures and policies, and always follow them consistently. As far as you can, make sure that others in your organization also follow the correct procedures and policies.
+
+A storage engine is a software component that handles the operations that store and manage information in a database. MySQL is unusual among relational databases because it supports multiple storage engines.
+
+Each storage engine has a particular set of operational characteristics, including the types of locks to manage query contention and whether the storage engine supports transactions. These properties have implications for database performance, so choose your storage engine based on the type of data you want to store and the operations you want to perform.
+
+Most applications require only one storage engine for the whole database, but you can specify the storage engine on a table-by-table basis if your data has different requirements.
+
+Storage engines available in MySQL
+Engines
+
+Description
+
+InnoDB
+
+Default storage engine for MySQL 5.5 and later.
+Suitable for most data storage scenarios.
+Provides ACID-compliant tables and FOREIGN KEY referential-integrity constraints.
+Supports commit, rollback, and crash recovery capabilities to protect data.
+Supports row-level locking.
+Stores data in clustered indexes which reduces I/O for queries based on primary keys.
+MyISAM
+
+Manages non-transactional tables.
+Provides high-speed storage and retrieval.
+Supports full-text searching.
+MEMORY
+
+Provides in-memory tables, formerly known as HEAP.
+Stores all data in RAM for faster access than storing data on disks.
+Useful for quick lookups of reference and other identical data.
+MERGE
+
+Treats groups of similar MyISAM tables as a single table.
+Handles non-transactional tables.
+EXAMPLE
+
+Allows developers to practice creating a new storage engine.
+Allows developers to create tables.
+Does not store or fetch data.
+ARCHIVE
+
+Stores a large amount of data.
+Does not support indexes.
+CSV
+
+Stores data in Comma Separated Value format in a text file.
+BLACKHOLE
+
+Accepts data to store but always returns empty.
+FEDERATED
+
+Stores data in a remote database.
+Commands for working with Storage Engines
+If you’re a DBA working with storage engines in MySQL, you should be familiar with the following common commands.
+
+SHOW ENGINES
+Displays status information about the server’s storage engines. Useful for checking whether a storage engine is supported, or what the default engine is.
+
+mysql> SHOW ENGINES;
+
+Screenshot shows status information of server storage engines
+
+CREATE TABLE
+Creates a table using the storage engine specified in the ENGINE clause, as shown in the following examples:
+
+CREATE TABLE Products (i INT) ENGINE = INNODB;
+
+CREATE TABLE Product_Codes (i INT) ENGINE = CSV;
+
+CREATE TABLE History (i INT) ENGINE = MEMORY;
+
+If you do not specify the ENGINE clause, the CREATE TABLE statement creates the table with the default storage engine, usually InnoDB.
+
+SET
+For databases with non-standard storage needs, you can specify a different default storage engine using the set command.
+
+Set the default storage engine for the current session by setting the default_storage_engine variable using the SET command. For example, if you are creating a database to store archived data, you can use the following command:
+
+SET default_storage_engine=ARCHIVE;
+
+To set the default storage engine for all sessions, set the default-storage-engine option in the my.cnf configuration file.
+
+ALTER TABLE
+You can convert a table from one storage engine to another using an ALTER TABLE statement. For example, the following statement set the storage enigne for the Products table to Memory:
+
+ALTER TABLE Products ENGINE = MEMORY;
+
+InnoDB is suitable for most data storage needs but setting and working with different storage engines in MYSQL gives you more control over how your data is stored and accessed. Using the most appropriate storage engine for your data brings operational benefits like faster response times or efficient use of available storage.
