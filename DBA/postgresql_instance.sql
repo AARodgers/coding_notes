@@ -63,4 +63,35 @@ SELECT * FROM pg_tables WHERE schemaname = 'bookings';
 ALTER TABLE boarding_passes ENABLE ROW LEVEL SECURITY;
 -- learn more: https://www.postgresql.org/docs/9.5/ddl-rowsecurity.html
 
+-- Use the CLI to query the pg_tables to display metadata about the tables belonging to the bookings schema
+--and confirm that the row security for the boarding_passes was successfully enabled.
+SELECT * FROM pg_tables WHERE schemaname = 'bookings';
 
+-- There’s also a system catalog called pg_settings that stores data about configuration parameters of the PostgreSQL server.
+SELECT name, setting, short_desc FROM pg_settings WHERE name = 'wal_level';
+-- This will display the name, current setting, and a short description of the wal_level parameter.
+--pg_tables contains much more data about a given parameter than is available from the SHOW statement
+-- learn more: https://www.postgresql.org/docs/10/view-pg-settings.html
+
+--change the name of the aircrafts_data to aircraft_fleet.
+-- try changing the name of the table by directly editing the pg_tables table from the system catalogs.
+-- DON'T DO THIS BELOW!!
+--SQL command to update a table from the system catalog directly results in an error. This is a good safeguard for you as a database administrator since as discussed earlier in the lab, changing individual
+--values in a system catalog directly can severely mess up your database. Let’s try a different approach.
+--UPDATE pg_tables SET tablename = 'aircraft_fleet' WHERE tablename = 'aircrafts_data';
+
+--to properly change the name of the aircrafts_data, enter the following command in the CLI:
+ALTER TABLE aircrafts_data RENAME TO aircraft_fleet;
+--To confirm that the table was successfully renamed, query pg_tables from the system catalog by
+--schemaname ‘bookings’ to display the tablename column.
+SELECT tablename FROM pg_tables WHERE schemaname = 'bookings';
+
+-----------------------------------
+Notes:
+An instance is a logical boundary for a database or set of databases where you organize database objects and set configuration parameters.
+
+Common database objects are items that exist within the database such as tables, constraints, indexes, keys, views, aliases, triggers, events, and log files.
+
+Different RDBMSs use different names for their system objects. Most use the terms system schema, system tables, catalog, or directory.
+
+Database storage is managed through logical database objects and physical storage.
