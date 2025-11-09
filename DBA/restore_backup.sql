@@ -86,3 +86,12 @@ SELECT * FROM aircrafts_data;
 --enter \q to exit this view.
 \q
 
+-- Look up user with booking reference for this passenger is 0002D8.
+SELECT * FROM tickets WHERE book_ref = '0002D8';
+
+-- correct the spelling by changing the passenger_name to “SANYA KORELEVA”.
+UPDATE tickets SET passenger_name = 'SANYA KORELEVA' WHERE book_ref = '0002D8';
+
+-- In the Cloud IDE terminal, enter the following command to create a backup of
+--the restored_demo called restored_demo_backup.sql database:
+"pg_dump --username=postgres --host=localhost restored_demo > restored_demo_backup.sql"
