@@ -37,3 +37,20 @@ SELECT * FROM customers LIMIT 5;
 -- strings of length 255 by entering the following command into the CLI.
 -- Do this line in the SQL tab of phpMyAdmin(press Go to execute):
 ALTER TABLE customers MODIFY COLUMN addressLine1 varbinary(255);
+
+-- Now, to encrypt the addressLine1 column, execute the following command using the AES
+--encryption standard and our hashed passphrase.
+
+UPDATE customers SET addressLine1  = AES_ENCRYPT(addressLine1 , @key_str);
+
+-- see if the column was successfully encrypted by taking another look at the customers table
+SELECT * FROM customers LIMIT 5;
+
+--we should still have a way to access the encrypted data when needed. To do this,
+--we use the AES_DECRYPT command, and since AES is symmetric, we use the same key for both encryption
+--and decryption. In our case, recall that the key was a passphrase, which was hashed and stored in the
+--variable key_str. Suppose we need to access the sensitive data in that column. We can do so by entering
+--the following command in the CLI:
+SELECT cast(AES_DECRYPT(addressLine1 , @key_str) as char(255)) FROM customers;
+
+
