@@ -34,4 +34,78 @@ demo-# \dt
  bookings | ticket_flights  | table | postgres
  bookings | tickets         | table | postgres
 
+# the following output showing all the tables that are part of the bookings schema in the demo database
+
+####################################################################
+# Exercise : Create New Roles and Grant them Relevant Privileges
+
+# In PostgreSQL, users, groups, and roles are all the same entity, with the difference being that users can log in by default.
+# In this exercise, you will create two new roles: read_only and read_write, then grant them the relevant privileges.
+# To begin, ensure that you have the PostgreSQL Command Line Interface open and connected to the demo database, as such:
+
+# Create a read_only role and grant it privileges
+
+# To create a new role named read_only, enter the following command into the CLI:
+CREATE ROLE read_only;
+
+# First, this role needs the privilege to connect to the demo database itself. To grant this privilege, enter the following command into the CLI:
+GRANT CONNECT ON DATABASE demo TO read_only;
+
+# Next, the role needs to be able to use the schema in use in this database. In our example, this is the bookings schema. Grant the privilege for the read_only role to use the schema by entering the following:
+GRANT USAGE ON SCHEMA bookings TO read_only;
+
+
+GRANT SELECT ON ALL TABLES IN SCHEMA bookings TO read_only;
+
+# This allows the read_only role to execute the SELECT command on all tables in the bookings schema.
+
+# Task B: Create a read_write role and grant it privileges
+# Similarly, create a new role called read_write with the following command in the PostgreSQL CLI:
+CREATE ROLE read_write;
+
+
+GRANT CONNECT ON DATABASE demo TO read_write;
+
+# Give the role the privileges to use the bookings schema that is used in the demo database with the following:
+
+GRANT USAGE ON SCHEMA bookings TO read_write;
+
+# So far the commands for the read_write role have been essentially the same as for the read_only role. However, the read_write role should have the privileges to not only access the contents of the database, but also to create, delete, and modify entries. The corresponding commands for these actions are SELECT, INSERT, DELETE, and UPDATE, respectively. Grant this role these privileges by entering the following command into the CLI:
+
+
+GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA bookings TO read_write;
+
+=========================================================
+Exercise 2: Add a New User and Assign them a Relevant Role
+# In this exercise, you will create a new user for the database and assign them the one of the roles you created in Exercise . This method streamlines the process of adding new users to the database since you don’t have to go through the process of granting custom privileges to each one. Instead, you can assign them a role and the user inherits the privileges of that role.
+
+
+# Suppose you wish to add a new user, user_a, for use by an information and help desk at an airport. In this case, assume that there is no need for this user to modify the contents of the database. As you may have guessed, the appropriate role to assign is the read_only role.
+
+# To create a new user named user_a, enter the following command into the PostgreSQL CLI:
+
+
+CREATE USER user_a WITH PASSWORD 'user_a_password';
+
+
+# In practice, you would enter a secure password in place of ‘user_a_password’, which will be used to access the database through this user.
+
+# Next, assign user_a the read_only role by executing the following command in the CLI:
+
+
+GRANT read_only TO user_a;
+
+# You can list all the roles and users by typing the following command:
+
+\du
+
+# You will see the following output:
+demo=# \du
+                                     List of roles
+ Role name  |                         Attributes                         |  Member of
+------------+------------------------------------------------------------+-------------
+ postgres   | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ read_only  | Cannot login                                               | {}
+ read_write | Cannot login                                               | {}
+ user_a     |                                                            | {read_only}
 
