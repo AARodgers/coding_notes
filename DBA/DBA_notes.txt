@@ -90,3 +90,19 @@ You can convert a table from one storage engine to another using an ALTER TABLE 
 ALTER TABLE Products ENGINE = MEMORY;
 
 InnoDB is suitable for most data storage needs but setting and working with different storage engines in MYSQL gives you more control over how your data is stored and accessed. Using the most appropriate storage engine for your data brings operational benefits like faster response times or efficient use of available storage.
+
+================================================================================================
+
+User Management and Access Control in PostgreSQL
+
+NOTE: he postgres superuser may not be appropriate as it bypasses all permission checks, which carries inherent risk
+
+Objectives
+
+Create roles in a database and grant them select permissions
+Create new users in the database and assign them the appropriate role
+Revoke and deny access to the database from a user
+
+use a database from https://postgrespro.com/education/demodb
+
+
