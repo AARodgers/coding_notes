@@ -109,3 +109,31 @@ demo=# \du
  read_write | Cannot login                                               | {}
  user_a     |                                                            | {read_only}
 
+##########################################################################
+
+# Exercise 3: Revoke and Deny Access
+# In this exercise, you will learn how to revoke a user’s privilege to access specific tables in a database.
+
+# Suppose there is no need for the information and help desk at the airport to access information stored in the aircrafts_data table. In this exercise, you will revoke the SELECT privilege on the aircrafts_data table in the demo database from user_a.
+
+# You can use the REVOKE command in the Command Line Interface to remove specific privileges from a role or user in PostgreSQL. Enter the following command into the PostgreSQL CLI to remove the privileges to access the aircrafts_data table from user_a:
+
+
+REVOKE SELECT ON aircrafts_data FROM user_a;
+
+# Now suppose user_a is transferred departments within the airport and no longer needs to be able to access the demo database at all. You can remove all their SELECT privileges by simply revoking the read_only role you assigned to them earlier. You can do this by entering the following command in the CLI:
+
+REVOKE read_only FROM user_a;
+
+
+# Now you can check all the users and their roles again to see that the read_only role was successfully revoked from user_a by entering the following command again:
+
+\du
+
+# You will see the following output:
+ Role name  |                         Attributes                         | Member of
+------------+------------------------------------------------------------+-----------
+ postgres   | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ read_only  | Cannot login                                               | {}
+ read_write | Cannot login                                               | {}
+ user_a     |                                                            | {}
