@@ -105,4 +105,13 @@ Revoke and deny access to the database from a user
 
 use a database from https://postgrespro.com/education/demodb
 
+============================================
+DB Monitoring Involves:
+To perform several database monitoring tasks, including: Forecasting your future hardware requirements based on database usage patterns. Analyzing the performance of individual applications or database queries. Tracking the usage of indexes and tables. Determining the root cause of any system performance degradation. Optimizing database
+elements to provide the best possible performance. And assessing the impact of any optimization activities.
 
+Proactive Monitoring involves:
+
+Proactive monitoring typically utilizes automated processes to perform tasks such as regularly verifying that a database system is online and accessible, verifying that configuration changes do not adversely affect the performance of the database system, and that the database system is operating and performing at acceptable levels. This proactive approach is widely considered to be the better strategy and is preferred by most database admins. To determine whether your database system is performing at its most optimal, you first need to establish a baseline for your database system’s performance.
+
+ven when things are working well, and as expected, you can still use your performance baseline data to help you determine operational norms, such as your peak and off-peak hours of operation, typical response times for running queries and processing batch commands, and the time taken to perform database backup and restore operations. The following areas typically have the greatest effect on the performance of your database system: System hardware resources, network architecture, operating system, database applications, and client applications. There are two ways to monitor operations in your database. 
