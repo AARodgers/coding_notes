@@ -114,4 +114,39 @@ Proactive Monitoring involves:
 
 Proactive monitoring typically utilizes automated processes to perform tasks such as regularly verifying that a database system is online and accessible, verifying that configuration changes do not adversely affect the performance of the database system, and that the database system is operating and performing at acceptable levels. This proactive approach is widely considered to be the better strategy and is preferred by most database admins. To determine whether your database system is performing at its most optimal, you first need to establish a baseline for your database system’s performance.
 
-ven when things are working well, and as expected, you can still use your performance baseline data to help you determine operational norms, such as your peak and off-peak hours of operation, typical response times for running queries and processing batch commands, and the time taken to perform database backup and restore operations. The following areas typically have the greatest effect on the performance of your database system: System hardware resources, network architecture, operating system, database applications, and client applications. There are two ways to monitor operations in your database. 
+Even when things are working well, and as expected, you can still use your performance baseline data to help you determine operational norms, such as your peak and off-peak hours of operation, typical response times for running queries and processing batch commands, and the time taken to perform database backup and restore operations. The following areas typically have the greatest effect on the performance of your database system: System hardware resources, network architecture, operating system, database applications, and client applications. There are two ways to monitor operations in your database.
+
+-------------------------------------
+
+There are many types of indexes that you can add to your databases, with popular ones being regular indexes, primary indexes, unique indexes, full-text indexes and prefix indexes.
+
+Type of Index	Description
+Regular Index	An index where values do not have to be unique and can be NULL.
+Primary Index	Primary indexes are automatically created for primary keys. All column values are unique and NULL values are not allowed.
+Unique Index	An index where all column values are unique. Unlike the primary index, unique indexes can contain a NULL value.
+Full-Text Index	An index used for searching through large amounts of text and can only be created for char, varchar and/or text datatype columns.
+Prefix Index	An index that uses only the first N characters of a text value, which can improve performance as only those characters would need to be searched.
+
+-----------------------------------------------------
+Generally, it’s best practice to avoid adding indexes to all your columns, only adding them to the ones that it may be helpful for, such as a column that is frequently accessed. While indexing can improve the performance of some queries, it can also slow down your inserts, updates and deletes because each index will need to be updated every time. Therefore, it’s important to find the balance between the number of indexes and the speed of your queries.
+
+In addition, indexes are less helpful for querying small tables or large tables where almost all the rows need to be examined. In the case where most rows need to be examined, it would be faster to read all those rows rather than using an index. As such, adding an index is dependent on your needs.
+
+When possible, avoid selecting all columns from your table. With larger datasets, selecting all columns and displaying them can take much longer than selecting the one or two columns that you need.
+
+For example, with a dataset of about 300,000 employee entries, the following query takes about 0.31 seconds to load:
+
+SELECT * FROM employee;
+
+But if we only wanted to see the employee numbers and their hire dates (2 out of the 6 columns) we could easily do so with this query that takes 0.12 seconds to load:
+
+SELECT employee_number, hire_date FROM employee;
+
+Notice how the execution time of the query is much faster compared to the when we selected them all. This method can be helpful when dealing with large datasets that you only need select specific columns from.
+
+Use the UNION ALL Clause
+When using the OR operator with LIKE statements, a UNION ALL clause can improve the speed of your query, especially if the columns on both sides of the operator are indexed.
+
+This improvement is due to the OR operator sometimes scanning the entire table and overlooking indexes, whereas the UNION ALL operator will apply them to the separate SELECT statements.
+
+
