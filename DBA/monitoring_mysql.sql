@@ -29,4 +29,8 @@ SOURCE world_mysql_script.sql;
 -- What tables do we have?
 SHOW TABLES;
 
+-- Database monitoring refers to the tasks related to reviewing the operational status of your database
+-- select button next to phpMyAdmin
+
+-- Database optimization refers to maximizing the speed and efficiency of retrieving data from your database
 
