@@ -208,3 +208,68 @@ select * from staff;
 
 8.  Quit the mysql prompt.
 \q
+
+Task G: Restore the Database
+To restore the database:
+
+You pick up a compressed zip file present in the backup folder and unzip it to extract the sql file using the gunzip command.
+
+You connect to the mysql database and restore the database with the sqlfile.
+
+1.In the terminal window, run the following command to find the list of backup files that have been created.
+ls -l /home/theia/backups
+
+2. Select the file that you want to restore the data from and copy the file name.
+
+Unzip the file and extract the SQL file from the backup file.
+gunzip /home/theia/backups/<backup zip file name>
+
+3. Populate and restore the database with the sqlfile that results from the unzip operation.
+mysql sakila < /home/theia/backups/<backup sql file name>
+
+4. To check the restored database, go to the mysql prompt.
+mysql -u root -p
+
+5.Use the sakila database:
+use sakila;
+
+6.Select all the rows from any one of the tables, as given below. You should find that the database is restored.
+select * from staff;
+
+7. Quit the MySQL command prompt session using the command below in the terminal and proceed to Task D:
+\q
+
+Create a shell script which takes the database name and back up directory as parameters and backs up the database as &lt;dbname&gt;_timestamp.sql in the backup directory. If the database doesn’t exist, it should display appropriate message. If the backup dir doesn’t exist, it should create one.
+dbname=$(mysql -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$1'" | grep $1)
+
+if [ ! -d $2 ]; then
+    mkdir $2
+fi
+
+if [ $1 == $dbname ]; then
+    sqlfile=$2/$1-$(date +%d-%m-%Y).sql
+    if mysqldump  $1 > $sqlfile ; then
+    echo 'Sql dump created'
+    else
+        echo 'Error creating backup!'
+    fi
+else
+    echo "Database doesn't exist"
+fi
+
+Write a shell script which takes the database name and the script file as parameters and restores the database from the sql file.
+
+if [ -f $2 ]; then
+    dbname=$(mysql -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$1'" | grep $1)
+    if [ $1 != $dbname ]; then
+        echo "Created DB as it didn't exist"
+        mysql -e "Create database $1"
+    fi
+    mysql -e "use $1"
+    mysql $1 < $2
+else
+    echo "File doesn't exist"
+fi
+
+You can clean up the backups folder by using the following command:
+sudo rm -rfv /home/theia/backupsgit
