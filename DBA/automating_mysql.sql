@@ -139,3 +139,72 @@ Task E: Setting Up a Cron Job
 -- / The slash operator allows you to specify values that will be repeated over a certain interval between them. For example, if you have */4 in the Hour field, it means the action will be performed every four hours. It is same as specifying 0,4,8,12,16,20. Instead of an asterisk before the slash operator,
 -- you can also use a range of values. For example, 1-30/10 means the same as 1,11,21.
 
+To understand how a crontab works, let’s set up a cron job that happens every 2 minutes.
+
+1.To start the crontab, run the following command in the terminal:
+crontab -e
+
+2.Scroll to the bottom of the editor page using the down arrow key and copy and paste the following code:
+*/2 * * * * /home/theia/sqlbackup.sh
+
+3.The cron service needs to be explicitly started. Start the cron service by executing the following command:
+sudo service cron start
+
+4.After 2 minutes, execute the following command to check whether the backup file are created:
+ls -l /home/theia/backups
+
+5. In this example, the cron is set for backup every 2 minutes. Stop the cron service using the below command:
+
+6. Stop the crons job
+sudo service cron stop
+
+Exercise:
+
+1. Change the crontab schedule to create a backup every week on Monday at 12:00 a.m.
+0 0 * * 1 /home/project/sqlbackup.sh > /home/project/backup.log
+Change the crontab schedule to create a backup every day at 6:00 a.m.
+
+0 6 * * * /home/project/sqlbackup.sh > /home/project/backup.log
+
+
+Task F: Truncate the Tables in the Database
+Now that you have automated the backup task, let’s replicate a scenario where the data is corrupted or lost and you will remove all the data in the database and restore the data from the backup.
+
+We will create a truncate script that does the following:
+
+Connects to mysql RDBMS using the credentials.
+
+Lists tables using show tables and feeds the output using pipe(|) operator to the next command.
+
+Iterates through each table using a while loop and truncates the table.
+
+1. Create a new file named truncate.sh under home/project with following code:
+
+#!/bin/sh
+
+DATABASE=sakila
+
+mysql -Nse 'show tables' sakila | \
+    while read table; do mysql \
+    -e "use sakila;SET FOREIGN_KEY_CHECKS=0;truncate table $table;SET FOREIGN_KEY_CHECKS=1;" ;done
+
+2. Change the permission of the file by running the following command:
+sudo chmod u+x+r truncate.sh
+
+3. Execute the script to truncate the tables.
+bash truncate.sh
+
+4. To check whether the tables in the database are truncated, log in to the database with the credentials.
+mysql -u root -p
+
+5.Switch to the sakila database.
+use sakila;
+
+6. Check all the tables in the database.
+show tables;
+
+7. Retrieve all the rows from staff table. If the truncate was successful, the output should be an Empty set.
+select * from staff;
+
+8.  Quit the mysql prompt.
+\q
