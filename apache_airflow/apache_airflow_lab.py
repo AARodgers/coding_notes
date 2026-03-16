@@ -360,4 +360,213 @@ download >> execute_extract >> execute_transform >> execute_load >> execute_chec
 
 ##### End Practice Problem ######
 
+################################################################
 
+Hands-on Lab: Create a DAG for Apache Airflow with BashOperator
+#In this lab, you will create workflows using BashOperator in Airflow DAGs and simulate an ETL process using bash commands that are scheduled to run once a day.
+After completing this lab, you will be able to:
+
+Explore the Airflow Web UI
+Create a DAG with BashOperator
+Submit a DAG and run it through Web UI
+
+Exercise 3: Create a DAG
+Let's create a DAG that runs daily, and extracts user information from /etc/passwd file, transforms it, and loads it into a file.
+
+This DAG will have two tasks extract that extracts fields from /etc/passwd file and transform_and_load that transforms and loads data into a file.
+
+# import the libraries
+
+from datetime import timedelta
+# The DAG object; we'll need this to instantiate a DAG
+from airflow.models import DAG
+# Operators; you need this to write tasks!
+from airflow.operators.bash_operator import BashOperator
+# This makes scheduling easy
+from airflow.utils.dates import days_ago
+
+#defining DAG arguments
+
+# You can override them on a per-task basis during operator initialization
+default_args = {
+    'owner': 'your_name_here',
+    'start_date': days_ago(0),
+    'email': ['your_email_here'],
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5),
+}
+
+# defining the DAG
+
+# define the DAG
+dag = DAG(
+    'my-first-dag',
+    default_args=default_args,
+    description='My first DAG',
+    schedule_interval=timedelta(days=1),
+)
+
+# define the tasks
+
+# define the first task
+
+extract = BashOperator(
+    task_id='extract',
+    bash_command='cut -d":" -f1,3,6 /etc/passwd > /home/project/airflow/dags/extracted-data.txt',
+    dag=dag,
+)
+
+# define the second task
+transform_and_load = BashOperator(
+    task_id='transform',
+    bash_command='tr ":" "," < /home/project/airflow/dags/extracted-data.txt > /home/project/airflow/dags/transformed-data.csv',
+    dag=dag,
+)
+
+# task pipeline
+extract >> transform_and_load
+
+# End ETL DAG script ##################################
+
+Exercise 4: Submit a DAG
+Submitting a DAG is as simple as copying the DAG Python file into the dags folder in the AIRFLOW_HOME directory.
+
+Airflow searches for Python source files within the specified DAGS_FOLDER. The location of DAGS_FOLDER can be located in the airflow.cfg file, where it has been configured as /home/project/airflow/dags.
+
+Airflow will load the Python source files from this designated location. It will process each file, execute its contents, and subsequently load any DAG objects present in the file.
+
+Therefore, when submitting a DAG, it is essential to position it within this directory structure. Alternatively, the AIRFLOW_HOME directory, representing the structure /home/project/airflow, can also be utilized for DAG submission.
+
+# Open a terminal and run the command below to set the AIRFLOW_HOME.
+export AIRFLOW_HOME=/home/project/airflow
+echo $AIRFLOW_HOME
+
+#Run the command below to submit the DAG that was created in the previous exercise.
+export AIRFLOW_HOME=/home/project/airflow
+cp my_first_dag.py $AIRFLOW_HOME/dags
+
+# Verify that your DAG actually got submitted.
+
+# Run the command below to list out all the existing DAGs.
+airflow dags list
+
+# Verify that my-first-dag is a part of the output.
+airflow dags list|grep "my-first-dag"
+
+# You should see your DAG name in the output.
+
+# Run the command below to list out all the tasks in my-first-dag.
+airflow tasks list my-first-dag
+
+
+#######################################################
+
+Practice exercise
+Write a DAG named ETL_Server_Access_Log_Processing.py.
+
+Create the imports block.
+Create the DAG Arguments block. You can use the default settings
+Create the DAG definition block. The DAG should run daily.
+Create the download task. The download task must download the server access log file, which is available at the URL:
+https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Apache%20Airflow/Build%20a%20DAG%20using%20Airflow/web-server-access-log.txt
+
+Create the extract task.
+
+The server access log file contains these fields.
+
+a. timestamp - TIMESTAMP
+b. latitude - float
+c. longitude - float
+d. visitorid - char(37)
+e. accessed_from_mobile - boolean
+f. browser_code - int
+
+The extract task must extract the fields timestamp and visitorid.
+
+Create the transform task. The transform task must capitalize the visitorid.
+
+Create the load task. The load task must compress the extracted and transformed data.
+
+Create the task pipeline block. The pipeline block should schedule the task in the order listed below:
+
+download
+extract
+transform
+load
+Submit the DAG.
+
+Verify if the DAG is submitted.
+
+Solution to Practice Problem:
+
+# import the libraries
+
+from datetime import timedelta
+# The DAG object; we'll need this to instantiate a DAG
+from airflow.models import DAG
+# Operators; you need this to write tasks!
+from airflow.operators.bash_operator import BashOperator
+# This makes scheduling easy
+from airflow.utils.dates import days_ago
+
+#defining DAG arguments
+
+# You can override them on a per-task basis during operator initialization
+default_args = {
+    'owner': 'your_name',
+    'start_date': days_ago(0),
+    'email': ['your email'],
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5),
+}
+
+# defining the DAG
+
+# define the DAG
+dag = DAG(
+    'ETL_Server_Access_Log_Processing',
+    default_args=default_args,
+    description='My first DAG',
+    schedule_interval=timedelta(days=1),
+)
+
+# define the tasks
+
+# define the task 'download'
+
+download = BashOperator(
+    task_id='download',
+    bash_command='curl "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Apache%20Airflow/Build%20a%20DAG%20using%20Airflow/web-server-access-log.txt" -o web-server-access-log.txt',
+    dag=dag,
+)
+
+# define the task 'extract'
+
+extract = BashOperator(
+    task_id='extract',
+    bash_command='cut -f1,4 -d"#" web-server-access-log.txt > /home/project/airflow/dags/extracted.txt',
+    dag=dag,
+)
+
+
+# define the task 'transform'
+
+transform = BashOperator(
+    task_id='transform',
+    bash_command='tr "[a-z]" "[A-Z]" < /home/project/airflow/dags/extracted.txt > /home/project/airflow/dags/capitalized.txt',
+    dag=dag,
+)
+
+# define the task 'load'
+
+load = BashOperator(
+    task_id='load',
+    bash_command='zip log.zip capitalized.txt' ,
+    dag=dag,
+)
+
+# task pipeline
+
+download >> extract >> transform >> load
+
+#### End of DAG bash script #############################
