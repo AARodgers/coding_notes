@@ -219,6 +219,7 @@ task_pipeline.jpg
 
 # import the libraries
 from datetime import timedelta
+from airflow.utils.dates import days_ago
 # To instantiate a DAG
 from airflow.models import DAG
 
@@ -398,6 +399,17 @@ transform_data = BashOperator(
 )
 
 # Define task pipeline (2.7)
-unzip_data > extract_data_from_csv > extract_data_from_tsv > extract_data_from_fixed_width > consolidate_data > transform_data
+unzip_data >> extract_data_from_csv >> extract_data_from_tsv >> extract_data_from_fixed_width >> consolidate_data >> transform_data
 
 #######################################
+
+# In terminal:
+
+# to unpause dag:
+airflow dags unpause ETL_toll_data
+
+# list dag task
+airflow tasks list ETL_toll_data
+
+# monitor DAG
+airflow dags list-runs -d ETL_toll_data
