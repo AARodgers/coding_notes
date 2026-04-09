@@ -14,4 +14,12 @@ Github Copilot Notes:
 - Can help you fix errors, ( don't know how but a little box will pop up and select
 : Fix using Copilot or Explain using Copilot)
 - It can you explain things and help you if you click the sparkle stars
-- 
+-
+
+Notes from Next Level Productivity for Nonprofits: Advanced Copilot & Agent Skills Training
+4/9/26
+
+- CoPilot Chat has agents ( out of the box, other paid ones) - open app
+- they built different kinds of agents: sales, research, project manager, analyst
+- Free version: Copilot Chat ( can use without a 365 account)
+
