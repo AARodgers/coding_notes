@@ -101,3 +101,42 @@ SELECT
     AVG(price_usd) AS avg_price
 FROM crypto_tokens
 GROUP BY category
+
+
+/* =========================================
+Week 4 Homework in SQLiteStudio:
+• Create a table for storing crypto price and volume data
+• Insert at least 5 rows of historical BTC or ETH price data
+Write in Your Homework Document:
+• SQL commands you used to create the table and insert data
+• A sample query retrieving the highest price in your dataset
+
+========================================= */
+
+/* =========================================
+Create a table for storing crypto price and volume data
+========================================= */
+CREATE TABLE crypto_price_history (
+    record_id INTEGER PRIMARY KEY,
+    token_symbol TEXT NOT NULL,
+    price_date TEXT NOT NULL,
+    close_price_usd REAL NOT NULL,
+    daily_volume_usd REAL NOT NULL
+);
+
+/* =========================================
+Insert 5 rows of historical BTC price and volume data
+========================================= */
+INSERT INTO crypto_price_history (token_symbol, price_date, close_price_usd, daily_volume_usd)
+VALUES
+    ('BTC', '2024-01-01', 42000.00, 18000000000),
+    ('BTC', '2024-01-02', 43500.00, 19500000000),
+    ('BTC', '2024-01-03', 44800.00, 21000000000),
+    ('BTC', '2024-01-04', 46200.00, 22500000000),
+    ('BTC', '2024-01-05', 47000.00, 24000000000);
+
+/* =========================================
+Sample query: retrieve the highest price in the dataset
+========================================= */
+SELECT MAX(close_price_usd) AS highest_price
+FROM crypto_price_history;

@@ -23,3 +23,69 @@ Notes from Next Level Productivity for Nonprofits: Advanced Copilot & Agent Skil
 - they built different kinds of agents: sales, research, project manager, analyst
 - Free version: Copilot Chat ( can use without a 365 account)
 
+HOW TO GET COPILOT TO WRITE SQL FOR YOU
+
+There are three primary ways to generate SQL queries with GitHub Copilot in VS Code depending on your preferred workflow:
+
+---
+
+### Method 1: Inline Chat (Fastest & Most Direct)
+
+Use inline chat directly inside your SQL file to generate a specific query.
+
+1. Open a file with a `.sql` extension (or press `Ctrl+N` / `Cmd+N`, then set the language mode to **SQL**).
+2. Press **`Ctrl + I`** (Windows/Linux) or **`Cmd + I`** (Mac) on your keyboard to open the inline chat input.
+3. Type what you want in plain English (e.g., `"Write a query to calculate monthly revenue grouped by customer status"`) and press **Enter**.
+4. Review the generated query, then click **Accept** (or press `Ctrl+Enter` / `Cmd+Enter`).
+
+---
+
+### Method 2: Comment-to-Code Generation (Auto-Complete)
+
+Let Copilot write the query right below your cursor based on a descriptive comment.
+
+1. In your `.sql` file, type a double-dash comment (`--`) describing what you want:
+```sql
+-- Select top 10 customers by total order amount in 2025
+
+```
+
+
+2. Press **Enter** to move to a new line.
+3. Copilot will display a **ghost-text** suggestion in grey.
+4. Press **`Tab`** to accept the suggestion.
+
+---
+
+### Method 3: Sidebar Chat (Best for Complex Queries & Schemas)
+
+Use the dedicated Copilot Chat sidebar if you need to provide table schema context or refine a query over multiple prompts.
+
+1. Click the **Copilot Chat icon** in the left activity bar (or press `Ctrl+Alt+I` / `Cmd+Ctrl+I`).
+2. Provide your table structures and request in the chat prompt:
+```text
+I have two tables:
+1. users (id, name, created_at)
+2. orders (id, user_id, amount, status)
+
+Write an optimized query to find users created in the last 30 days who have spent over $500 total.
+
+```
+
+
+3. Hover over the generated SQL block in the chat response and click **Insert at Cursor** (or copy-paste it).
+
+---
+
+### Pro-Tips for Better SQL Results
+
+* **Define Your Schema:** Copilot generates significantly better queries if it knows your table structures. At the top of your `.sql` file, include comments with table definitions:
+```sql
+-- Schema:
+-- users(id, name, status)
+-- orders(id, user_id, total_price, order_date)
+
+```
+
+
+* **Specify SQL Flavor:** Include the database engine in your prompt or comment (e.g., `-- PostgreSQL query: ...` or `-- T-SQL query: ...`) to get dialect-specific syntax.
