@@ -140,3 +140,41 @@ Sample query: retrieve the highest price in the dataset
 ========================================= */
 SELECT MAX(close_price_usd) AS highest_price
 FROM crypto_price_history;
+
+
+/* =========================================
+Putting code into SQLiteStudio:
+========================================= */
+To run SQL code in SQLiteStudio, you first need a database set up in the app to hold and execute your queries.
+
+---
+
+### Step 1: Create or Connect to a Database
+
+If you do not already have a database file loaded in SQLiteStudio:
+
+1. Click **Database** in the top menu bar, then click **Add a database** (or press **`Ctrl + O`** / **`Cmd + O`**).
+2. Next to the **File** field, click the folder icon to choose where to save your new database file (e.g., name it `my_database.db`).
+3. Click **OK**. Your new database will now appear in the **Databases** list on the left pane.
+
+---
+
+### Step 2: Open the SQL Editor
+
+1. Open the SQL Editor by clicking **Tools** in the top menu and selecting **Open SQL editor** (or press **`Ctrl + E`** / **`Cmd + E`**).
+2. Look at the **Database drop-down menu** at the top of the SQL Editor tab. Make sure your target database (e.g., `my_database`) is selected in the list.
+
+---
+
+### Step 3: Paste and Execute Your Code
+
+1. Copy your SQL code and paste it directly into the top main text field of the SQL Editor.
+2. Click the **Execute Query** button on the editor toolbar (it looks like a **Blue/Green Play Triangle** ▶), or press **`F9`**.
+
+---
+
+### Step 4: View Your Results
+
+* **For `SELECT` queries:** Your requested data will appear in the **Results / Grid View** tab in the middle pane below your code.
+* **For `CREATE TABLE` or `INSERT` queries:** Check the **Status** log at the bottom to verify the query executed successfully without errors.
+* **To check updated tables:** Double-click any table name in the left **Databases** sidebar to open it, then switch to its **Data** tab to see your records visually.
