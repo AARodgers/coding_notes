@@ -124,3 +124,128 @@ CREATE MATERIALIZED VIEW average_billamount (year,quarter,category,country, aver
     on "FactBilling".monthid="DimMonth".monthid
     group by year,quarter,category,country
     );
+
+
+==============
+
+    Create a grouping sets query using the columns productid, producttype, total sales.
+
+    SELECT
+    p.Productid,
+    p.Producttype,
+    SUM(f.Price_PerUnit * f.QuantitySold) AS TotalSales
+FROM
+    FactSales f
+INNER JOIN
+    DimProduct p ON f.Productid = p.Productid
+GROUP BY GROUPING SETS (
+    (p.Productid, p.Producttype),
+    p.Productid,
+    p.Producttype,
+    ()
+)
+ORDER BY
+    p.Productid,
+    p.Producttype;
+
+In this query:
+
+You're joining FactSales 'f' with DimProduct 'p' on their productid to correlate each sale with its product type.
+
+You're using GROUPING SETS to specify the different levels of aggregation:
+
+– By both Productid and Producttype
+– By Productid alone
+– By Producttype alone
+– And a grand total with (), which doesn't group by any column and hence returns the sum for all sales.
+
+You're calculating TotalSales by multiplying the Price_PerUnit by QuantitySold for each sale.
+The ORDER BY clause ensures the results are ordered by productid and then by producttype.
+
+###Create a rollup query using the columns year, city, productid, and total sales.
+
+
+SELECT
+    d.Year,
+    cs.City,
+    p.Productid,
+    SUM(f.Price_PerUnit * f.QuantitySold) AS TotalSales
+FROM
+    FactSales f
+JOIN
+    DimDate d ON f.Dateid = d.Dateid
+JOIN
+    DimProduct p ON f.Productid = p.Productid
+JOIN
+    DimCustomerSegment cs ON f.Segmentid = cs.Segmentid
+GROUP BY ROLLUP (d.Year, cs.City, p.Productid)
+ORDER BY
+    d.Year DESC,
+    cs.City,
+    p.Productid;
+
+This query performs the following operations:
+
+Joins FactSales with DimDate on Dateid, DimProduct on Productid, and DimCustomerSegment on Segmentid.
+Selects the year from DimDate, the city from DimCustomerSegment, and the product ID from DimProduct.
+Calculates total sales by multiplying the price per unit by the quantity sold for each sales entry.
+Groups the results using the ROLLUP function to create a grouping set that includes all combinations of year, city, and productid, along with their respective subtotals and a grand total for all sales.
+The ORDER BY clause ensures the results are first ordered by year in descending order, then by city and product ID.
+
+
+Create a cube query using the columns year, city, productid, and average sales.
+
+SELECT
+    d.Year,
+    cs.City,
+    p.Productid,
+    AVG(f.Price_PerUnit * f.QuantitySold) AS AverageSales
+FROM
+    FactSales f
+INNER JOIN
+    DimDate d ON f.Dateid = d.Dateid
+INNER JOIN
+    DimProduct p ON f.Productid = p.Productid
+INNER JOIN
+    DimCustomerSegment cs ON f.Segmentid = cs.Segmentid
+GROUP BY CUBE (d.Year, cs.City, p.Productid);
+
+n this query:
+
+The CUBE clause is used in the GROUP BY to create subtotals for all combinations of year, city, and productid in addition to the grand total across all groups.
+
+AVG(f.Price_PerUnit * f.QuantitySold) calculates the average sales, factoring in both the price per unit and the quantity sold.
+
+INNER JOIN is used to join the FactSales table with the dimension tables DimDate, DimProduct, and DimCustomerSegment.
+
+
+
+####Create an materialized view named max_sales using the columns city, productid, producttype, and max sales.
+
+CREATE MATERIALIZED VIEW max_sales AS
+SELECT
+    cs.City,
+    p.Productid,
+    p.Producttype,
+    MAX(f.Price_PerUnit * f.QuantitySold) AS MaxSales
+FROM
+    FactSales f
+JOIN
+    DimProduct p ON f.Productid = p.Productid
+JOIN
+    DimCustomerSegment cs ON f.Segmentid = cs.Segmentid
+GROUP BY
+    cs.City,
+    p.Productid,
+    p.Producttype
+WITH DATA;
+
+This statement will create the materialized view and populate it with the current data from the joined tables. The WITH DATA clause tells PostgreSQL to fill the view with the query results immediately. If you wanted to create the view without filling it with data, you would use WITH NO DATA.
+
+To update the materialized view with the latest data, you would use the REFRESH MATERIALIZED VIEW command:
+
+REFRESH MATERIALIZED VIEW max_sales;
+
+=====================
+
+
