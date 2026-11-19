@@ -129,8 +129,19 @@ CREATE MATERIALIZED VIEW average_billamount (year,quarter,category,country, aver
 ==============
 
     Create a grouping sets query using the columns productid, producttype, total sales.
+    # Result of grouping sets: will give you a sales summary table with subtotals and a grand total (instead of making seperate queries)
+    # Specifically it gives you:
+        - sales for each specific product type ( ex. electronics, furniture, etc.)
+        - sales for each specific product id ( ex. 1001, 1002, etc.)
+        - the grand total of all sales across all product types and product ids.
+    # Normally, a standard GROUP BY only gives you one level of summary at a time (like just by product type).
+    # GROUPING SETS lets the database stack multiple summary levels into a single table—putting blank or NULL values in
+    # the columns that aren't being broken down on a given row to show it's a subtotal or total.
+    # In short: it answers "How much did we sell?" at multiple zoom levels—by product, by category, and overall—at the same time.
+    # NOTE: a NULL for productid means it's a subtotal for that product type, and a NULL for both productid and producttype means it's the grand total.
 
-    SELECT
+
+SELECT
     p.Productid,
     p.Producttype,
     SUM(f.Price_PerUnit * f.QuantitySold) AS TotalSales
@@ -162,8 +173,28 @@ You're using GROUPING SETS to specify the different levels of aggregation:
 You're calculating TotalSales by multiplying the Price_PerUnit by QuantitySold for each sale.
 The ORDER BY clause ensures the results are ordered by productid and then by producttype.
 
-###Create a rollup query using the columns year, city, productid, and total sales.
 
+
+########## Create a rollup query using the columns year, city, productid, and total sales. #########
+# Answers the questions: , it answers:
+"What are our sales broken down by year, then city, then product—and what are the subtotals by city-year,
+subtotals by year, and grand total along the way?"
+
+# Result:
+Specifically, with ROLLUP(year, city, productid), SQL creates a strict top-to-bottom hierarchy (unlike GROUPING SETS, which lets you pick arbitrary combinations):
+
+Year + City + Product: Total sales for a specific product, in a specific city, in a specific year.
+
+Year + City subtotal: Total sales across all products for a given city and year (productid is NULL).
+
+Year subtotal: Total sales across all cities and products for a given year (city and productid are both NULL).
+
+Grand total: Total sales across all years, cities, and products combined (year, city, and productid are all NULL).
+
+# Why ROLLUP instead of GROUPING SETS? Because ROLLUP is designed for hierarchical aggregations, which is exactly what we want here: a clear top-down summary from year to city to product.
+ROLLUP (a, b, c) assumes an ordered drill-down/roll-up path (a → b → c), giving (a, b, c), (a, b), (a), and (). It won't give you standalone subtotals like "just by city across all years" unless you use GROUPING SETS or CUBE.
+
+It is ideal when your reporting hierarchy naturally flows in sequence—such as Time → Geography → Product.
 
 SELECT
     d.Year,
@@ -247,5 +278,3 @@ To update the materialized view with the latest data, you would use the REFRESH 
 REFRESH MATERIALIZED VIEW max_sales;
 
 =====================
-
-
