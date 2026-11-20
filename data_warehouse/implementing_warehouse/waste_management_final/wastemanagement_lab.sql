@@ -156,3 +156,95 @@ CREATE TABLE FactTrips (
     FOREIGN KEY (Stationid) REFERENCES DimStation(Stationid),
     FOREIGN KEY (Truckid) REFERENCES DimTruck(Truckid)
 );
+
+Create a grouping sets query using the columns stationid, trucktype, total waste collected.
+SELECT
+    s.Stationid,
+    t.TruckType,
+    SUM(f.Wastecollected) AS TotalWasteCollected
+FROM
+    FactTrips f
+INNER JOIN
+    DimTruck t ON f.Truckid = t.Truckid
+GROUP BY GROUPING SETS (
+    (s.Stationid, t.TruckType),
+    s.Stationid,
+    t.TruckType,
+    ()
+)
+ORDER BY
+    s.Stationid,
+    t.TruckType;
+
+
+Create a rollup query using the columns year, city, stationid, and total waste collected.
+
+
+SELECT
+    d.Year,
+    s.City,
+    f.Stationid,
+    SUM(f.Wastecollected) AS TotalWasteCollected
+FROM
+    FactTrips f
+INNER JOIN
+    DimDate d ON f.Dateid = d.Dateid
+INNER JOIN
+    DimStation s ON f.Stationid = s.Stationid
+GROUP BY ROLLUP (
+    d.Year,
+    s.City,
+    f.Stationid
+)
+ORDER BY
+    d.Year,
+    s.City,
+    f.Stationid;
+
+
+
+/*How ROLLUP Aggregates This Hierarchy
+
+Unlike GROUPING SETS, ROLLUP generates subtotals strictly from right to left based on the column order inside ROLLUP(...):
+1. (Year, City, Stationid): Total waste for each individual station per city and year.
+2. (Year, City): Subtotal for each city per year (rolling up all stations in that city).
+3. (Year): Subtotal for each year (rolling up all cities in that year).
+4. (): Overall grand total across all years, cities, and stations.*/
+
+Create a cube query using the columns year, city, stationid, and average waste collected.
+
+SELECT
+    d.Year,
+    s.City,
+    f.Stationid,
+    AVG(f.Wastecollected) AS AverageWasteCollected
+FROM
+    FactTrips f
+INNER JOIN
+    DimDate d ON f.Dateid = d.Dateid
+INNER JOIN
+    DimStation s ON f.Stationid = s.Stationid
+GROUP BY CUBE (
+    d.Year,
+    s.City,
+    f.Stationid
+)
+ORDER BY
+    d.Year,
+    s.City,
+    f.Stationid;
+
+/* To calculate the average waste collected across every possible combination of Year, City, and Stationid, replace ROLLUP with CUBE and SUM with AVG.*/
+/*
+While ROLLUP only moves hierarchically from right to left (4 grouping combinations), CUBE generates all \(2^3 = 8\) possible combinations of your three columns:
+1. (Year, City, Stationid) — Average per station, city, and year
+2. (Year, City) — Average per city and year
+3. (Year, Stationid) — Average per station and year
+4. (City, Stationid) — Average per station and city (across all years)
+5. (Year) — Average per year
+6. (City) — Average per city (across all years)
+7. (Stationid) — Average per station (across all years)
+8. () — Overall grand average across the entire table
+*/
+
+

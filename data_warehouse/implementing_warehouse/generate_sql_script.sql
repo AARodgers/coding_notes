@@ -129,7 +129,7 @@ INSERT INTO dimproduct (Productid, Producttype) VALUES
 
     Create a grouping sets query using the columns productid, producttype, total sales.
 
-    SELECT
+SELECT
     p.Productid,
     p.Producttype,
     SUM(f.Price_PerUnit * f.QuantitySold) AS TotalSales
@@ -267,4 +267,3 @@ CREATE TABLE DimDate (
 );
 
 New table DimStation with this CSV data:
-
