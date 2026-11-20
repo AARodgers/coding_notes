@@ -98,3 +98,61 @@ CREATE TABLE MyFactTrips (
     FOREIGN KEY (zone_id) REFERENCES MyDimZone(zone_id),
     FOREIGN KEY (waste_id) REFERENCES MyDimWaste(waste_id)
 );
+
+=======================================================
+
+ew DimDate table with this CSV data:
+dateid,date,Year,Quarter,QuarterName,Month,Monthname,Day,Weekday,WeekdayName
+1,2019-03-09,2019,1,Q1,3,March,9,7,Sunday
+
+create DimDate table:
+
+CREATE TABLE DimDate (
+    dateid INT PRIMARY KEY,
+    date DATE NOT NULL,
+    "Year" INT NOT NULL,
+    "Quarter" INT NOT NULL,
+    QuarterName VARCHAR(10) NOT NULL,
+    Month INT NOT NULL,
+    Monthname VARCHAR(20) NOT NULL,
+    Day INT NOT NULL,
+    Weekday INT NOT NULL,
+    WeekdayName VARCHAR(20) NOT NULL
+);
+
+New table DimStation with this CSV data:
+Stationid,City
+19,Sao Paulo
+
+create DimStation table:
+CREATE TABLE DimStation (
+    Stationid INT PRIMARY KEY,
+    City VARCHAR(50) NOT NULL
+);
+
+new table DimTruck with this CSV data:
+Truckid,TruckType
+115,Volvo
+
+create DimTruck table:
+
+CREATE TABLE DimTruck (
+    Truckid INT PRIMARY KEY,
+    TruckType VARCHAR(50) NOT NULL
+);
+
+new table FactTrips with this CSV data:
+Tripid,Dateid,Stationid,Truckid,Wastecollected
+23475,1,71,133,33.36
+create FactTrips table:
+
+CREATE TABLE FactTrips (
+    Tripid INT PRIMARY KEY,
+    Dateid INT NOT NULL,
+    Stationid INT NOT NULL,
+    Truckid INT NOT NULL,
+    Wastecollected DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (Dateid) REFERENCES DimDate(dateid),
+    FOREIGN KEY (Stationid) REFERENCES DimStation(Stationid),
+    FOREIGN KEY (Truckid) REFERENCES DimTruck(Truckid)
+);

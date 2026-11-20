@@ -246,3 +246,25 @@ To update the materialized view with the latest data, you would use the REFRESH 
 REFRESH MATERIALIZED VIEW max_sales;
 
 
+=================================
+New DimDate table with this CSV data:
+dateid,date,Year,Quarter,QuarterName,Month,Monthname,Day,Weekday,WeekdayName
+1,2019-03-09,2019,1,Q1,3,March,9,7,Sunday
+
+create DimDate table:
+
+CREATE TABLE DimDate (
+    dateid INT PRIMARY KEY,
+    date DATE NOT NULL,
+    "Year" INT NOT NULL,
+    "Quarter" INT NOT NULL,
+    QuarterName VARCHAR(10) NOT NULL,
+    Month INT NOT NULL,
+    Monthname VARCHAR(20) NOT NULL,
+    Day INT NOT NULL,
+    Weekday INT NOT NULL,
+    WeekdayName VARCHAR(20) NOT NULL
+);
+
+New table DimStation with this CSV data:
+
