@@ -155,9 +155,9 @@ CREATE TABLE DimDate (
     WeekdayName VARCHAR(255) NOT NULL
 );
 
-Copied!
 
-Wrap Toggled!
+
+
 Step 3: Use the import tool in pgAdmin to load your CSV file into the table
 
 Navigate to the DimDate table in pgAdmin, right-click it, select Import/Export.
@@ -203,18 +203,11 @@ Name the screenshot 10-DimProduct.jpg. (Images can be saved with either the .j
 Solution:
 Step 1: Create the DimProduct table
 
-1
-2
-3
-4
 CREATE TABLE DimProduct (
     Productid INT PRIMARY KEY,
     Producttype VARCHAR(255) NOT NULL
 );
 
-Copied!
-
-Wrap Toggled!
 Step 2: Use the import tool in pgAdmin to load your CSV file into the table (Refer to Task 9 -> Solution for DimDate -> Step 3 for the detail)
 
 Navigate to the DimProduct table in pgAdmin, right-click it, select Import/Export.
@@ -241,18 +234,14 @@ Name the screenshot 11-DimCustomerSegment.jpg. (Images can be saved with eithe
 Solution:
 Step 1: Create the DimCustomerSegment table
 
-1
-2
-3
-4
 CREATE TABLE DimCustomerSegment (
     Segmentid INT PRIMARY KEY,
     City VARCHAR(255) NOT NULL
 );
 
-Copied!
 
-Wrap Toggled!
+
+
 Step 2: Use the import tool in pgAdmin to load your CSV file into the table (Refer to Task 9 -> Solution for DimDate -> Step 3 for the detail)
 
 Navigate to the DimCustomerSegment table in pgAdmin, right-click it, select Import/Export.
@@ -279,17 +268,6 @@ Name the screenshot 12-FactSales.jpg. (Images can be saved with either the .jp
 Solution:
 Step 1: Create the FactSales table
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
 CREATE TABLE FactSales (
     Salesid VARCHAR(255) PRIMARY KEY,
     Dateid INT NOT NULL,
@@ -302,9 +280,9 @@ CREATE TABLE FactSales (
     FOREIGN KEY (Segmentid) REFERENCES DimCustomerSegment(Segmentid)
 );
 
-Copied!
 
-Wrap Toggled!
+
+
 Step 2: Use the import tool in pgAdmin to load your CSV file into the table(Refer to Task 9 -> Solution for DimDate -> Step 3 for the detail)
 
 Navigate to the FactSales table in pgAdmin, right-click it, select Import/Export.
@@ -318,4 +296,3 @@ After running the SELECT query, the first 5 rows of your FactSales table will be
 Step 4: Take the screenshot.
 
 Take a screenshot of this panel with the results. You can use the snipping tool on Windows, Shift+Command+4 on Mac, or the equivalent on your operating system.
-

@@ -224,7 +224,18 @@ Groups the results using the ROLLUP function to create a grouping set that inclu
 The ORDER BY clause ensures the results are first ordered by year in descending order, then by city and product ID.
 
 
-Create a cube query using the columns year, city, productid, and average sales.
+############### Create a cube query using the columns year, city, productid, and average sales. ##########################
+
+# Answers the questions: With CUBE(year, city, productid) and AVG(...), the query calculates average sales across every
+possible combination of those three dimensions—including all subtotals and the overall average—in a single result set.
+
+Questions This Query AnswersBecause CUBE generates all $2^3 = 8$ combinations of (year, city, productid), it answers questions from any
+angle without forcing a strict order:All three together: What is the average sale for a specific product, in a specific city, during a
+specific year?Two-dimension subtotals:Average sale by year and city (across all products)Average sale by year and product (across all cities)
+Average sale by city and product (across all years)One-dimension subtotals:Average sale by year aloneAverage sale by city aloneAverage sale
+by product aloneOverall average: What is the average sale across all years, cities, and products combined?(Note on AVG vs. SUM: Since it
+computes averages rather than sums, a subtotal row is the average of the underlying sales rows in that slice—not simply the average of the 
+smaller subtotals shown above it.)
 
 SELECT
     d.Year,
