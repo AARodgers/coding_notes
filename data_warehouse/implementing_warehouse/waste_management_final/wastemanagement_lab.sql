@@ -101,7 +101,7 @@ CREATE TABLE MyFactTrips (
 
 =======================================================
 
-ew DimDate table with this CSV data:
+New DimDate table with this CSV data:
 dateid,date,Year,Quarter,QuarterName,Month,Monthname,Day,Weekday,WeekdayName
 1,2019-03-09,2019,1,Q1,3,March,9,7,Sunday
 
@@ -166,6 +166,8 @@ FROM
     FactTrips f
 INNER JOIN
     DimTruck t ON f.Truckid = t.Truckid
+INNER JOIN
+    DimStation s ON f.Stationid = s.Stationid
 GROUP BY GROUPING SETS (
     (s.Stationid, t.TruckType),
     s.Stationid,
@@ -181,7 +183,7 @@ Create a rollup query using the columns year, city, stationid, and total waste c
 
 
 SELECT
-    d.Year,
+    d."Year", #because was in quotes in the table creation
     s.City,
     f.Stationid,
     SUM(f.Wastecollected) AS TotalWasteCollected
@@ -192,12 +194,12 @@ INNER JOIN
 INNER JOIN
     DimStation s ON f.Stationid = s.Stationid
 GROUP BY ROLLUP (
-    d.Year,
+    d."Year",
     s.City,
     f.Stationid
 )
 ORDER BY
-    d.Year,
+    d."Year",
     s.City,
     f.Stationid;
 
@@ -214,7 +216,7 @@ Unlike GROUPING SETS, ROLLUP generates subtotals strictly from right to left bas
 Create a cube query using the columns year, city, stationid, and average waste collected.
 
 SELECT
-    d.Year,
+    d."Year",
     s.City,
     f.Stationid,
     AVG(f.Wastecollected) AS AverageWasteCollected
@@ -225,12 +227,12 @@ INNER JOIN
 INNER JOIN
     DimStation s ON f.Stationid = s.Stationid
 GROUP BY CUBE (
-    d.Year,
+    d."Year",
     s.City,
     f.Stationid
 )
 ORDER BY
-    d.Year,
+    d."Year",
     s.City,
     f.Stationid;
 
@@ -263,4 +265,4 @@ INNER JOIN
 GROUP BY
     s.City,
     f.Stationid,
-    t.TruckType;        
+    t.TruckType;
