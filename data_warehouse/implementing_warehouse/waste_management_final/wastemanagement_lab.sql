@@ -247,4 +247,20 @@ While ROLLUP only moves hierarchically from right to left (4 grouping combinatio
 8. () — Overall grand average across the entire table
 */
 
+Create a materialized view named max_waste_stats using the columns city, stationid, trucktype, and max waste collected.
 
+SELECT
+    s.City,
+    f.Stationid,
+    t.TruckType,
+    MAX(f.Wastecollected) AS MaxWasteCollected
+FROM
+    FactTrips f
+INNER JOIN
+    DimStation s ON f.Stationid = s.Stationid
+INNER JOIN
+    DimTruck t ON f.Truckid = t.Truckid
+GROUP BY
+    s.City,
+    f.Stationid,
+    t.TruckType;        
